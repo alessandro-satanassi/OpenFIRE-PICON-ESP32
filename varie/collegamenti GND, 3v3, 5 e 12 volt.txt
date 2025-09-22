@@ -1,0 +1,58 @@
+=========================================================
+======== GND dalla piazzola della LOGICA dal micro ======
+======== vicino micro o millefori micro =================
+=========================================================
+1 GND stick analogico
+2 GND switch POMP Action
+3 GND modulo PAD digitale e due pulsanti
+4 GND CAM
+5 GND OLED
+6 GND NEOPIXEL
+7 GND optoisolatore driver SOLENOIDE (non la GND della piazzola di potenza in quanto il controllo è optoisolato) -- UNO o L'ALTRO (il 9)
+8 GND sensore TEMPERATURA
+9 GND switch attivazione SOLENOIDE -- UNO o L'ALTRO (il 7)
+10 GND switch GRILLETTO
+11 ?? GND PEDAL + ALT PEDAL (al posto del 7 o del 9, in ogni caso complessivamente sono 10)
+PS: - la GND del module RUMBLE la prende dalla piazzola GND di potenza vicino alimentatore in quanto non è optoisolato
+    - i pulsanti del lato sinistro hanno la GND saltata direttamente sulla millefori (3 pulsanti per 3 GND)
+=========================================================
+
+=========================================================
+======== GND dalla piazzola GND potenza =================
+======== vicino alimentatore ============================
+=========================================================
+1 GND controllo attivazione 5V del modulo alimentatore (switch per accensione pistola)
+2 GND del controllo modulo RUMBLE
+3 GND al driver di POTENZA del solenoide che va anche al solenoide
+4 GND connettore 12v
+5 GND del modulo alimentatore
+? GND del diodo laser di puntamento (quando in futuro lo metterò, controllato direttamente da un pulsante o uno switch)
+=========================================================
+
+=========================================================
+======== 3v3 (prelevata dal micro) ======================
+=========================================================
+1 CAM
+2 OLED
+3 TEMP SENSOR
+4 ANALOGIC STICK
+=========================================================
+
+=========================================================
+======== 5V (prelevata da alimentatore) =================
+=========================================================
+Tramite CAVO USB C portata a scheda Micro, unitamente a linee dati
+1 RUMBLE
+2 NEOPIXEL
+? diodo laser qualora collegato
+=========================================================
+
+=========================================================
+======== 12 V (prelevata da connettore 12v) =============
+=========================================================
+1 SOLENOIDE (parte potenza)
+2 collegato ad ingresso Vin dell'alimentatore (tramite diodo e Elettrolico ?)
+=========================================================
+
+
+
