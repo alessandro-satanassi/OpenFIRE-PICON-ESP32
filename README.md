@@ -7,9 +7,9 @@ Lightgun for OpenFIRE-ESP32
 
 # RP2040-Pico / Esp32-S3-Pico
 
-![foto1](https://github.com/alessandro-satanassi/OpenFIRE-PICON-ESP32/blob/main/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png)
+![foto1](/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png)
 
-![foto 2](https://github.com/alessandro-satanassi/OpenFIRE-PICON-ESP32/blob/main/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_BACK.png)
+![foto 2](/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_BACK.png)
 
 ![foto 3](https://github.com/alessandro-satanassi/OpenFIRE-PICON-ESP32/blob/main/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_BACK_INCLINATO.png)
 
