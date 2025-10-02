@@ -35,7 +35,18 @@ Lightgun for OpenFIRE-ESP32
   </tr>
 </table>
 
-
+<table>
+  <tr>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">Testo sotto 1</td>
+    <td style="text-align: center;">Testo sotto 2</td>
+    <td style="text-align: center;">Testo sotto 3</td>
+  </tr>
+</table>
 
 
 OpenFIRE-PICON-ESP32 è un progetto derivato da Picon-OG, creato da iCON.  
