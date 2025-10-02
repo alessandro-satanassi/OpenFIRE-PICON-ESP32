@@ -15,6 +15,28 @@ Lightgun for OpenFIRE-ESP32
 
 ![foto 4](https://github.com/alessandro-satanassi/OpenFIRE-PICON-ESP32/blob/main/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT_INCLINATO.png)
 
+<p>
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150" style="display: inline-block; margin-right: 10px;"/>
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150" style="display: inline-block; margin-right: 10px;"/>
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150" style="display: inline-block;"/>
+</p>
+
+<div style="display: flex; gap: 10px;">
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/>
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/>
+  <img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/>
+</div>
+
+<table>
+  <tr>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+    <td><img src="/IMMAGINI/SCHEMA_PCB/PCB_ESP32-S3-PICO_RP2040-PICO/PICON-AS_esp32-s3_pico-rp2040_pico_FRONT.png" width="150"/></td>
+  </tr>
+</table>
+
+
+
 
 OpenFIRE-PICON-ESP32 è un progetto derivato da Picon-OG, creato da iCON.  
 Questa opera è distribuita sotto licenza Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0), come il progetto da cui è derivato.
