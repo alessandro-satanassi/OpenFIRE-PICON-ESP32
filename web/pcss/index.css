@@ -48,7 +48,7 @@
 #imCell_16 { display: grid; grid-column: 2 / 50; grid-row: 8 / 9; }
 #imCell_40 { display: grid; grid-column: 2 / 50; grid-row: 9 / 10; }
 #imCell_43 { display: grid; grid-column: 2 / 50; grid-row: 10 / 11; }
-#imCell_17 { display: grid; grid-column: 50 / 74; grid-row: 7 / 11; }
+#imCell_85 { display: grid; grid-column: 50 / 74; grid-row: 7 / 11; }
 #imCell_21 { display: grid; grid-column: 2 / 74; grid-row: 11 / 12; }
 #imCell_26 { display: grid; grid-column: 2 / 26; grid-row: 12 / 16; }
 #imCell_22 { display: grid; grid-column: 26 / 74; grid-row: 12 / 13; }
@@ -121,7 +121,7 @@
 	#imCell_16 { display: grid; grid-column: 2 / 50; grid-row: 8 / 9; }
 	#imCell_40 { display: grid; grid-column: 2 / 50; grid-row: 9 / 10; }
 	#imCell_43 { display: grid; grid-column: 2 / 50; grid-row: 10 / 11; }
-	#imCell_17 { display: grid; grid-column: 50 / 74; grid-row: 7 / 11; }
+	#imCell_85 { display: grid; grid-column: 50 / 74; grid-row: 7 / 11; }
 	#imCell_21 { display: grid; grid-column: 2 / 74; grid-row: 11 / 12; }
 	#imCell_26 { display: grid; grid-column: 2 / 26; grid-row: 12 / 16; }
 	#imCell_22 { display: grid; grid-column: 26 / 74; grid-row: 12 / 13; }
@@ -196,7 +196,7 @@
 	#imCell_16 { display: grid; grid-column: 2 / 74; grid-row: 10 / 11; }
 	#imCell_40 { display: grid; grid-column: 2 / 74; grid-row: 11 / 12; }
 	#imCell_43 { display: grid; grid-column: 2 / 74; grid-row: 12 / 13; }
-	#imCell_17 { display: grid; grid-column: 2 / 74; grid-row: 13 / 17; }
+	#imCell_85 { display: grid; grid-column: 2 / 74; grid-row: 13 / 17; }
 	#imCell_21 { display: grid; grid-column: 2 / 74; grid-row: 17 / 18; }
 	#imCell_22 { display: grid; grid-column: 2 / 74; grid-row: 18 / 19; }
 	#imCell_23 { display: grid; grid-column: 2 / 74; grid-row: 19 / 20; }
@@ -271,7 +271,7 @@
 	#imCell_16 { display: grid; grid-column: 2 / 74; grid-row: 10 / 11; }
 	#imCell_40 { display: grid; grid-column: 2 / 74; grid-row: 11 / 12; }
 	#imCell_43 { display: grid; grid-column: 2 / 74; grid-row: 12 / 13; }
-	#imCell_17 { display: grid; grid-column: 2 / 74; grid-row: 13 / 14; }
+	#imCell_85 { display: grid; grid-column: 2 / 74; grid-row: 13 / 14; }
 	#imCell_21 { display: grid; grid-column: 2 / 74; grid-row: 14 / 15; }
 	#imCell_22 { display: grid; grid-column: 2 / 74; grid-row: 15 / 16; }
 	#imCell_23 { display: grid; grid-column: 2 / 74; grid-row: 16 / 17; }
@@ -797,14 +797,12 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imCellStyleGraphics_43 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: transparent;  }
 #imCellStyleBorders_43 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
 
-#imCell_17 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
-#imObjectImage_17 { position: relative; align-self: center; justify-self: center; max-width: 100%; box-sizing: border-box; z-index: 3; }
-#imCellStyleGraphics_17 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: transparent;  }
-#imCellStyleBorders_17 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
+#imCell_85 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
+#imHTMLObject_85 { position: relative; align-self: start; justify-self: center; max-width: 100%; box-sizing: border-box; z-index: 3; }
+#imCellStyleGraphics_85 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: transparent;  }
+#imCellStyleBorders_85 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
 
-#imObjectImage_17 #imObjectImage_17_container { width: 344px; max-width: 100%; line-height: 0; }
-#imObjectImage_17 { vertical-align: top; margin-top: 0px; margin-bottom: 0px; margin-inline-start: auto; margin-inline-end: auto; }
-#imObjectImage_17 #imObjectImage_17_container img { width: 100%; height: auto; vertical-align: top; }#imCell_21 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
+#imCell_21 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
 #pluginAppObj_21 { position: relative; align-self: start; justify-self: center; max-width: 100%; box-sizing: border-box; z-index: 3; }
 #imCellStyleGraphics_21 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: rgba(203, 203, 203, 1);  }
 #imCellStyleBorders_21 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
@@ -1864,10 +1862,10 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_43 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_43 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_43 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
-	#imCell_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; }
-	#imCell_17 { grid-template-rows: [row-content] auto ; }
-	#imObjectImage_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
-	#imCellStyleBorders_17 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imCell_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; }
+	#imCell_85 { grid-template-rows: [row-content] auto ; }
+	#imHTMLObject_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
+	#imCellStyleBorders_85 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
 	#imCell_21 { padding-top: 0px; padding-bottom: 20px; padding-inline-start: 0px; padding-inline-end: 0px; }
 	#imCell_21 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_21 { padding-top: 0px; padding-bottom: 1px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
@@ -2106,10 +2104,10 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_43 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_43 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_43 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
-	#imCell_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; }
-	#imCell_17 { grid-template-rows: [row-content] auto ; }
-	#imObjectImage_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
-	#imCellStyleBorders_17 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imCell_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 6px; padding-inline-end: 6px; }
+	#imCell_85 { grid-template-rows: [row-content] auto ; }
+	#imHTMLObject_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
+	#imCellStyleBorders_85 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
 	#imCell_21 { padding-top: 0px; padding-bottom: 20px; padding-inline-start: 0px; padding-inline-end: 0px; }
 	#imCell_21 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_21 { padding-top: 0px; padding-bottom: 1px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
@@ -2348,10 +2346,10 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_43 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_43 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_43 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
-	#imCell_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; }
-	#imCell_17 { grid-template-rows: [row-content] auto ; }
-	#imObjectImage_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
-	#imCellStyleBorders_17 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imCell_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; }
+	#imCell_85 { grid-template-rows: [row-content] auto ; }
+	#imHTMLObject_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
+	#imCellStyleBorders_85 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
 	#imCell_21 { padding-top: 0px; padding-bottom: 20px; padding-inline-start: 0px; padding-inline-end: 0px; }
 	#imCell_21 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_21 { padding-top: 0px; padding-bottom: 1px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
@@ -2590,10 +2588,10 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_43 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_43 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleGraphics_43 { box-sizing: border-box; }
-	#imCell_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; }
-	#imCell_17 { grid-template-rows: [row-content] auto ; }
-	#imObjectImage_17 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
-	#imCellStyleGraphics_17 { box-sizing: border-box; }
+	#imCell_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 5px; padding-inline-end: 5px; }
+	#imCell_85 { grid-template-rows: [row-content] auto ; }
+	#imHTMLObject_85 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
+	#imCellStyleGraphics_85 { box-sizing: border-box; }
 	#imCell_21 { padding-top: 0px; padding-bottom: 20px; padding-inline-start: 0px; padding-inline-end: 0px; }
 	#imCell_21 { grid-template-rows: [row-content] auto ; }
 	#pluginAppObj_21 { padding-top: 0px; padding-bottom: 0px; padding-inline-start: 0px; padding-inline-end: 0px; grid-row: row-content / span 1; grid-column: 1 / -1; }
