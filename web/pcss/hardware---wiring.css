@@ -5245,6 +5245,7 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_11_215_tab0 .imVc { vertical-align: middle; }
 #imTextObject_11_215_tab0 .imVb { vertical-align: bottom; }
 #imTextObject_11_215_tab0 hr { border: solid; border-block-width: 1px 0px; border-inline-width: 0px; }
+#imTextObject_11_215_tab0 .fs12lh1-5 { vertical-align: baseline; font-size: 12pt; line-height: 24px; }
 #imTextObject_11_215 .text-container {width: 100%;}#imTextObject_11_215 .text-container {margin: 0 auto; position: relative;overflow: hidden; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; background-color: rgba(255, 255, 255, 1); border-style: solid;border-color: rgba(169, 169, 169, 1); }
 #imTextObject_11_215 .text-container .grid-prop.current-tab {z-index: 1; opacity: 1;  }
 #imTextObject_11_215 .text-container .grid-prop {grid-area: 1 / 1 / 2 / 2; opacity: 0; box-sizing: border-box; position: relative;  }
@@ -8735,6 +8736,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_215 { grid-template-rows: [row-content] auto ; }
 	#imTextObject_11_215 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_215 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imTextObject_11_215_tab0 .image-0 { width: 100%; max-width: 102px; height: auto; }
+	#imTextObject_11_215_tab0 .image-1 { width: 100%; max-width: 85px; height: auto; }
+	#imTextObject_11_215_tab0 .image-2 { width: 100%; max-width: 96px; height: auto; }
+	#imTextObject_11_215_tab0 .image-3 { width: 100%; max-width: 100px; height: auto; }
+	#imTextObject_11_215_tab0 .image-4 { width: 100%; max-width: 104px; height: auto; }
 	#imTextObject_11_215 .text-container {border-block-width: 0px 1px; border-inline-width: 1px; box-sizing: border-box;width: 100%;}
 	#imCell_216 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; }
 	#imCell_216 { grid-template-rows: [row-content] auto ; }
@@ -9698,6 +9704,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_215 { grid-template-rows: [row-content] auto ; }
 	#imTextObject_11_215 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_215 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imTextObject_11_215_tab0 .image-0 { width: 100%; max-width: 102px; height: auto; }
+	#imTextObject_11_215_tab0 .image-1 { width: 100%; max-width: 85px; height: auto; }
+	#imTextObject_11_215_tab0 .image-2 { width: 100%; max-width: 96px; height: auto; }
+	#imTextObject_11_215_tab0 .image-3 { width: 100%; max-width: 100px; height: auto; }
+	#imTextObject_11_215_tab0 .image-4 { width: 100%; max-width: 104px; height: auto; }
 	#imTextObject_11_215 .text-container {border-block-width: 0px 1px; border-inline-width: 1px; box-sizing: border-box;width: 100%;}
 	#imCell_216 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 6px; padding-inline-end: 6px; }
 	#imCell_216 { grid-template-rows: [row-content] auto ; }
@@ -10661,6 +10672,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_215 { grid-template-rows: [row-content] auto ; }
 	#imTextObject_11_215 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleBorders_215 {  border-top: 0; border-bottom: 0; border-inline-start-width: 0px;  border-inline-end-width: 0px;  }
+	#imTextObject_11_215_tab0 .image-0 { width: 100%; max-width: 102px; height: auto; }
+	#imTextObject_11_215_tab0 .image-1 { width: 100%; max-width: 85px; height: auto; }
+	#imTextObject_11_215_tab0 .image-2 { width: 100%; max-width: 96px; height: auto; }
+	#imTextObject_11_215_tab0 .image-3 { width: 100%; max-width: 100px; height: auto; }
+	#imTextObject_11_215_tab0 .image-4 { width: 100%; max-width: 104px; height: auto; }
 	#imTextObject_11_215 .text-container {border-block-width: 0px 1px; border-inline-width: 1px; box-sizing: border-box;width: 100%;}
 	#imCell_216 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; }
 	#imCell_216 { grid-template-rows: [row-content] auto ; }
@@ -11624,6 +11640,11 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 	#imCell_215 { grid-template-rows: [row-content] auto ; }
 	#imTextObject_11_215 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 10px; padding-inline-end: 10px; grid-row: row-content / span 1; grid-column: 1 / -1; }
 	#imCellStyleGraphics_215 { box-sizing: border-box; }
+	#imTextObject_11_215_tab0 .image-0 { width: 100%; max-width: 102px; height: auto; }
+	#imTextObject_11_215_tab0 .image-1 { width: 100%; max-width: 85px; height: auto; }
+	#imTextObject_11_215_tab0 .image-2 { width: 100%; max-width: 96px; height: auto; }
+	#imTextObject_11_215_tab0 .image-3 { width: 100%; max-width: 100px; height: auto; }
+	#imTextObject_11_215_tab0 .image-4 { width: 100%; max-width: 104px; height: auto; }
 	#imTextObject_11_215 .text-container {border-block-width: 0px 1px; border-inline-width: 1px; box-sizing: border-box;width: 100%;}
 	#imCell_216 { padding-top: 10px; padding-bottom: 10px; padding-inline-start: 5px; padding-inline-end: 5px; }
 	#imCell_216 { grid-template-rows: [row-content] auto ; }
