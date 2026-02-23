@@ -3043,6 +3043,7 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_12_249_tab0 .imVc { vertical-align: middle; }
 #imTextObject_12_249_tab0 .imVb { vertical-align: bottom; }
 #imTextObject_12_249_tab0 hr { border: solid; border-block-width: 1px 0px; border-inline-width: 0px; }
+#imTextObject_12_249_tab0 .fs12lh1-5 { vertical-align: baseline; font-size: 12pt; line-height: 24px; }
 #imTextObject_12_249 .text-container {width: 100%;}#imTextObject_12_249 .text-container {margin: 0 auto; position: relative;overflow: hidden; display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr; background-color: rgba(255, 255, 255, 1); border-style: solid;border-color: rgba(169, 169, 169, 1); }
 #imTextObject_12_249 .text-container .grid-prop.current-tab {z-index: 1; opacity: 1;  }
 #imTextObject_12_249 .text-container .grid-prop {grid-area: 1 / 1 / 2 / 2; opacity: 0; box-sizing: border-box; position: relative;  }
