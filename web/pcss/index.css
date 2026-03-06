@@ -388,7 +388,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imFooter_imTextObject_02_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imFooter_imTextObject_02_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imFooter_imTextObject_02_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imFooter_imTextObject_02_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imFooter_imTextObject_02_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imFooter_imTextObject_02_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imFooter_imTextObject_02_tab0 p { margin: 0; padding: 0; }
 #imFooter_imTextObject_02_tab0 .inline-block { display: inline-block; }
 #imFooter_imTextObject_02_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -483,7 +484,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_02_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_02_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_02_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_02_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_02_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_02_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_02_tab0 p { margin: 0; padding: 0; }
 #imTextObject_02_tab0 .inline-block { display: inline-block; }
 #imTextObject_02_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -557,7 +559,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_61_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_61_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_61_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_61_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_61_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_61_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_61_tab0 p { margin: 0; padding: 0; }
 #imTextObject_61_tab0 .inline-block { display: inline-block; }
 #imTextObject_61_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -607,7 +610,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_62_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_62_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_62_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_62_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_62_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_62_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_62_tab0 p { margin: 0; padding: 0; }
 #imTextObject_62_tab0 .inline-block { display: inline-block; }
 #imTextObject_62_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -670,7 +674,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_15_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_15_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_15_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_15_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_15_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_15_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_15_tab0 p { margin: 0; padding: 0; }
 #imTextObject_15_tab0 .inline-block { display: inline-block; }
 #imTextObject_15_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -718,7 +723,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_16_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_16_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_16_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_16_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_16_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_16_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_16_tab0 p { margin: 0; padding: 0; }
 #imTextObject_16_tab0 .inline-block { display: inline-block; }
 #imTextObject_16_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -765,7 +771,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_40_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_40_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_40_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_40_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_40_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_40_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_40_tab0 p { margin: 0; padding: 0; }
 #imTextObject_40_tab0 .inline-block { display: inline-block; }
 #imTextObject_40_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -831,7 +838,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_22_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_22_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_22_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_22_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_22_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_22_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_22_tab0 p { margin: 0; padding: 0; }
 #imTextObject_22_tab0 .inline-block { display: inline-block; }
 #imTextObject_22_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -879,7 +887,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_23_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_23_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_23_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_23_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_23_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_23_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_23_tab0 p { margin: 0; padding: 0; }
 #imTextObject_23_tab0 .inline-block { display: inline-block; }
 #imTextObject_23_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -926,7 +935,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_48_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_48_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_48_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_48_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_48_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_48_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_48_tab0 p { margin: 0; padding: 0; }
 #imTextObject_48_tab0 .inline-block { display: inline-block; }
 #imTextObject_48_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -992,7 +1002,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_81_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_81_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_81_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_81_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_81_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_81_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_81_tab0 p { margin: 0; padding: 0; }
 #imTextObject_81_tab0 .inline-block { display: inline-block; }
 #imTextObject_81_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1040,7 +1051,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_82_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_82_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_82_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_82_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_82_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_82_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_82_tab0 p { margin: 0; padding: 0; }
 #imTextObject_82_tab0 .inline-block { display: inline-block; }
 #imTextObject_82_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1088,7 +1100,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_83_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_83_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_83_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_83_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_83_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_83_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_83_tab0 p { margin: 0; padding: 0; }
 #imTextObject_83_tab0 .inline-block { display: inline-block; }
 #imTextObject_83_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1153,7 +1166,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_28_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_28_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_28_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_28_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_28_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_28_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_28_tab0 p { margin: 0; padding: 0; }
 #imTextObject_28_tab0 .inline-block { display: inline-block; }
 #imTextObject_28_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1201,7 +1215,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_29_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_29_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_29_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_29_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_29_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_29_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_29_tab0 p { margin: 0; padding: 0; }
 #imTextObject_29_tab0 .inline-block { display: inline-block; }
 #imTextObject_29_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1249,7 +1264,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_50_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_50_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_50_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_50_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_50_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_50_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_50_tab0 p { margin: 0; padding: 0; }
 #imTextObject_50_tab0 .inline-block { display: inline-block; }
 #imTextObject_50_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1318,7 +1334,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_56_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_56_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_56_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_56_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_56_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_56_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_56_tab0 p { margin: 0; padding: 0; }
 #imTextObject_56_tab0 .inline-block { display: inline-block; }
 #imTextObject_56_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1366,7 +1383,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_57_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_57_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_57_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_57_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_57_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_57_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_57_tab0 p { margin: 0; padding: 0; }
 #imTextObject_57_tab0 .inline-block { display: inline-block; }
 #imTextObject_57_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1426,7 +1444,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_65_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_65_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_65_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_65_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_65_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_65_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_65_tab0 p { margin: 0; padding: 0; }
 #imTextObject_65_tab0 .inline-block { display: inline-block; }
 #imTextObject_65_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1498,7 +1517,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_69_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_69_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_69_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_69_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_69_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_69_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_69_tab0 p { margin: 0; padding: 0; }
 #imTextObject_69_tab0 .inline-block { display: inline-block; }
 #imTextObject_69_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1559,7 +1579,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_70_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_70_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_70_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_70_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_70_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_70_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_70_tab0 p { margin: 0; padding: 0; }
 #imTextObject_70_tab0 .inline-block { display: inline-block; }
 #imTextObject_70_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1634,7 +1655,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_71_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_71_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_71_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_71_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_71_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_71_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_71_tab0 p { margin: 0; padding: 0; }
 #imTextObject_71_tab0 .inline-block { display: inline-block; }
 #imTextObject_71_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1702,7 +1724,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_77_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_77_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_77_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_77_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_77_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_77_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_77_tab0 p { margin: 0; padding: 0; }
 #imTextObject_77_tab0 .inline-block { display: inline-block; }
 #imTextObject_77_tab0 sup { vertical-align: super; font-size: smaller; }
@@ -1777,7 +1800,8 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imTextObject_35_tab0 ol ol { list-style: lower-alpha; padding-block: 0px; padding-inline: 20px 0px; }
 #imTextObject_35_tab0 blockquote { margin-block: 0px; margin-inline: 15px 0px; padding: 0; border: none; }
 #imTextObject_35_tab0 table { border: none; padding: 0; border-collapse: collapse; }
-#imTextObject_35_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 4px 3px; margin: 0; vertical-align: middle; }
+#imTextObject_35_tab0 table th { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; text-align: start;  }
+#imTextObject_35_tab0 table td { border: 1px solid black; word-wrap: break-word; padding: 10px; margin: 0; vertical-align: middle; }
 #imTextObject_35_tab0 p { margin: 0; padding: 0; }
 #imTextObject_35_tab0 .inline-block { display: inline-block; }
 #imTextObject_35_tab0 sup { vertical-align: super; font-size: smaller; }

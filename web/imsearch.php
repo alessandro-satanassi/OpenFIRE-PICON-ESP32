@@ -6,18 +6,18 @@
 		<meta charset="utf-8" />
 		<!--[if IE]><meta http-equiv="ImageToolbar" content="False" /><![endif]-->
 		<meta name="author" content="Alessandro Satanassi" />
-		<meta name="generator" content="Incomedia WebSite X5 Evo 2025.3.8 - www.websitex5.com" />
+		<meta name="generator" content="Incomedia WebSite X5 Evo 2026.1.1 - www.websitex5.com" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link rel="stylesheet" href="style/reset.css?2025-3-8-0" media="screen,print" />
-		<link rel="stylesheet" href="style/print.css?2025-3-8-0" media="print" />
-		<link rel="stylesheet" href="style/style.css?2025-3-8-0" media="screen,print" />
-		<link rel="stylesheet" href="style/template.css?2025-3-8-0" media="screen" />
+		<link rel="stylesheet" href="style/reset.css?2026-1-1-0" media="screen,print" />
+		<link rel="stylesheet" href="style/print.css?2026-1-1-0" media="print" />
+		<link rel="stylesheet" href="style/style.css?2026-1-1-0" media="screen,print" />
+		<link rel="stylesheet" href="style/template.css?2026-1-1-0" media="screen" />
 		
 		<link rel="stylesheet" href="pluginAppObj/imFooter_pluginAppObj_03/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2025-3-8-0-639072935242824785" media="screen,print" />
-		<script src="res/jquery.js?2025-3-8-0"></script>
-		<script src="res/x5engine.js?2025-3-8-0" data-files-version="2025-3-8-0"></script>
+		<link rel="stylesheet" href="pcss/imsearch.css?2026-1-1-0-639083365964467302" media="screen,print" />
+		<script src="res/jquery.js?2026-1-1-0"></script>
+		<script src="res/x5engine.js?2026-1-1-0" data-files-version="2026-1-1-0"></script>
 		
 		<script src="pluginAppObj/imFooter_pluginAppObj_03/main.js"></script>
 		<script>
@@ -25,7 +25,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?2025-3-8-0-639072935242781171" type="image/png" />
+		<link rel="icon" href="favicon.png?2026-1-1-0-639083365964423843" type="image/png" />
 		<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 	</head>
 	<body>
@@ -193,7 +193,8 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 					</main>
 					<div id="imFooterBg"></div>
 					<footer id="imFooter">
-						<div id="imFooterObjects"><div id="imFooter_imObjectTitle_01_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectTitle_01"><span id ="imFooter_imObjectTitle_01_text" >OpenFIRE PICON-AS Esp32</span></div></div><div id="imFooter_imTextObject_02_wrapper" class="template-object-wrapper"><div id="imFooter_imTextObject_02">
+						<div id="imFooterObjects"><div id="imFooter_imObjectTitle_01_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectTitle_01"><span id ="imFooter_imObjectTitle_01_text" >OpenFIRE PICON-AS Esp32</span></div></div><div id="imFooter_imObjectImage_05_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectImage_05"><div id="imFooter_imObjectImage_05_container"><img src="images/logo_satanassi_bianco_migliore_senza-sfondo.png"  width="130" height="142" />
+</div></div></div><div id="imFooter_imTextObject_02_wrapper" class="template-object-wrapper"><div id="imFooter_imTextObject_02">
 	<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imFooter_imTextObject_02_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 		<div class="text-inner">
 			<div><span class="fs12lh1-5 cf1 ff1"><b>Alessandro Satanassi</b></span></div><div><span class="fs12lh1-5 cf1 ff1"><i>Italy</i></span></div><div><br></div><div><br></div>
@@ -211,8 +212,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
                 <script>
                     socialicons_imFooter_pluginAppObj_03();
                 </script>
-        </div></div><div id="imFooter_imObjectImage_05_wrapper" class="template-object-wrapper"><div id="imFooter_imObjectImage_05"><div id="imFooter_imObjectImage_05_container"><img src="images/logo_satanassi_bianco_migliore_senza-sfondo.png"  width="130" height="142" />
-</div></div></div></div>
+        </div></div></div>
 					</footer>
 				</div>
 				<span class="screen-reader-only-even-focused" style="bottom: 0;"><a href="#imGoToCont" title="Rileggi i contenuti della pagina">Torna ai contenuti</a></span>

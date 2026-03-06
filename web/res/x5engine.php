@@ -2463,7 +2463,7 @@ class X5Captcha {
 
         $len = strlen($sCode);
         for ($i = 0; $i < $len; $i++) {
-            $text .= "<img style=\"margin:0; padding:0; border: 0; border-collapse: collapse; width: 32px; height: 32px; position: absolute; top: 0; inset-inline-start: " . (32 * $i) . "px;\" src=\"imcpa_".$this->nameList[substr($sCode, $i, 1)].".gif\" alt=\"\" width=\"32\" height=\"32\">";
+            $text .= "<img style=\"margin:0; padding:0; border: 0; border-collapse: collapse; width: 32px; height: 32px; position: absolute; top: 0; inset-inline-start: " . (32 * $i) . "px;\" src=\"imcpa_".$this->nameList[substr($sCode, $i, 1)].".gif?ts=".time()."\" alt=\"\" width=\"32\" height=\"32\">";
         }
 
         $text .= "</body></html>";
