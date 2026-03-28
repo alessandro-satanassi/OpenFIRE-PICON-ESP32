@@ -3592,7 +3592,7 @@ class ImDb implements DatabaseAccess
     {
         if ($this->testConnection()) {
 			$table_name = isset($select_data['from']) ? $select_data['from'] : $select_data['select_from'];
-            return $this->query('SELECT ' . $this->_to_sql_column_name($select_data['select']) 
+            return $this->query('SELECT ' . $this->_to_sql_column_name(isset($select_data['select']) ? $select_data['select'] : null)
                 . ' FROM ' . $this->table($table_name) 
                 . $this->_where($select_data)
                 . $this->_group_by($select_data)
@@ -4620,7 +4620,7 @@ class ImForm
                             // Is it an URL?
                             $htmData .= "<tr valign=\"top\"><td width=\"25%\" style=\"[email:contentStyle]\"><b>" . str_replace(array("\\'", '\\"'), array("'", '"'), $label) . "</b></td><td style=\"[email:contentStyle]\"><a href=\"" . $field['value'] . "\">". $field['value'] . "</a></td></tr>\r\n";
                         } else {
-                            $htmData .= "<tr valign=\"top\"><td width=\"25%\" style=\"[email:contentStyle]\"><b>" . str_replace(array("\\'", '\\"'), array("'", '"'), $label) . "</b></td><td style=\"[email:contentStyle]\">" . str_replace(array("\\'", '\\"'), array("'", '"'), $field['value']) . "</td></tr>\r\n";
+                            $htmData .= "<tr valign=\"top\"><td width=\"25%\" style=\"[email:contentStyle]\"><b>" . str_replace(array("\\'", '\\"'), array("'", '"'), $label) . "</b></td><td style=\"[email:contentStyle]\">" . nl2br(str_replace(array("\\'", '\\"'), array("'", '"'), $field['value'])) . "</td></tr>\r\n";
                         }
                     }
                 }
@@ -6654,7 +6654,7 @@ class ImTopic
 
             if ($imSettings['general']['rtl']) {
                 if ($type == "guestbook")
-                    $html = ":\"" . $this->title . "\" " . str_replace(array("Blog", "blog"), array("Guestbook", "guestbook"), l10n('blog_new_comment_text')) . "<br /><br />\n\n";
+                    $html = ":\"" . $this->title . "\" " . l10n('guestbook_new_comment_text') . "<br /><br />\n\n";
                 else if ($type == "productpage")
                     $html = ":\"" . $this->title . "\" " . l10n('cart_new_comment_text') . "<br /><br />\n\n";
                 else
@@ -6667,7 +6667,7 @@ class ImTopic
                 $html .= stripslashes($_POST['body']) . " <b>" . l10n('blog_message') . "</b><br /><br />\n\n";
             } else {
                 if ($type == "guestbook")
-                    $html = str_replace(array("Blog", "blog"), array("Guestbook", "guestbook"), l10n('blog_new_comment_text')) . " \"" . $this->title . "\":<br /><br />\n\n";
+                    $html = l10n('guestbook_new_comment_text') . " \"" . $this->title . "\":<br /><br />\n\n";
                 else if ($type == "productpage")
                     $html = l10n('cart_new_comment_text') . " \"" . $this->title . "\":<br /><br />\n\n";
                 else
@@ -6685,9 +6685,9 @@ class ImTopic
                 $html .= "<a href=\"" . $moderateurl . "\">" . $moderateurl . "</a>";
             }
             if ($type == "guestbook")
-                $subject = str_replace(array("Blog", "blog"), array("Guestbook", "guestbook"), l10n('blog_new_comment_object'));
+                $subject = l10n('guestbook_new_comment_object');
             else if ($type == "productpage")
-                $subject = str_replace(array("Blog", "blog"), array($this->title, $this->title), l10n('blog_new_comment_object'));
+                $subject = str_replace("{0}", $this->title, l10n('cart_new_comment_object'));
             else
                 $subject = l10n('blog_new_comment_object');
             $ImMailer->send($from, $replyTo, $to, $subject, strip_tags($html), $html);

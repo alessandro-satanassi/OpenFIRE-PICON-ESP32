@@ -248,4 +248,7 @@
 	l('welcomepage_go_to_home', 'Vai all\'homepage');
 	l('welcomepage_title', 'Pagina di ingresso');
 	l('magicsite_created_with', 'Creato con');
+	l('blog_read_time', '[MM] minuti');
+	l('guestbook_new_comment_object', 'Guestbook: Nuovo commento');
+	l('guestbook_new_comment_text', 'E\' stato inserito un nuovo commento al guestbook');
 })( x5engine );
