@@ -346,12 +346,15 @@
 
         display:block;
 
-        {{#if card.image.sizeAdapted}}object-fit: cover; {{else}}object-fit: scale-down; {{/if}}
+        object-fit: {{#if card.image.sizeAdapted}}cover{{else}}{{#if misc.isArrangeChangingHeightOrMasonry}}cover{{else}}scale-down{{/if}}{{/if}};
 
         {{#if misc.isLayoutVertical}}
             {{#if card.image.sizeAdapted}}
             {{else}}
-            max-height: 100%;
+                {{#if misc.isArrangeChangingHeightOrMasonry}}
+                {{else}}
+                    max-height: 100%;
+                {{/if}}
             {{/if}}
         {{/if}}
 
@@ -425,7 +428,7 @@
                 .im-cc-BlogPostCard 
                     .im-cc-BlogPostCardCover 
         { 
-            {{#if card.image.sizeAdapted}}{{else}}width: auto;{{/if}}
+            width: auto;
         }
     {{/if}}{{/if}}
 

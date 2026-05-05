@@ -2539,7 +2539,7 @@ class ReCaptcha {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -5697,6 +5697,42 @@ class imSearch {
         return array("content" => $html, "count" => count($found_content));
     }
 
+
+
+    /**
+     * Autocorrect words using Levenshtein distance
+     * @access public
+     * @param queries The search query (array)
+     */
+    function autocorrectWords($queries) {
+
+        global $imSettings;
+
+        // Get from the search settings a dictionary of words from the catalog
+        $dictionary = $imSettings['search']['products_words_dictionary'];
+
+        $suggestions = [];
+        foreach ($queries as $q) {
+            $best = $q;
+            $bestDist = 99;
+            foreach ($dictionary as $real) {
+                $d = levenshtein($q, $real);
+                if ($d < $bestDist) {
+                    $bestDist = $d;
+                    $best     = $real;
+                }
+            }
+            // if very similar it is probably the correct word
+            if ($bestDist > 0 && $bestDist <= 2) {
+                $suggestions[] = $best;
+            } else {
+                $suggestions[] = $q;
+            }
+        }
+
+        return $suggestions;
+    }
+
     /**
      * Do the products search
      * @access public
@@ -5706,9 +5742,23 @@ class imSearch {
     {
        // Di questa funzione manca la paginazione!
 
+        // Remove quots from queries
+        for ($i=0 ; $i < count($queries); $i++) {
+            $query = $queries[$i];
+            $query = str_replace(['&amp;quot;', '&quot;', '"'], '', $query);
+            $queries[$i] = $query;
+        }
+
+        // WORD AUTOCORRECTION (light)
+        $corrected = $this->autocorrectWords($queries);
+        if ($corrected !== $queries) {
+            $this->autocorrect = implode(' ', $corrected);   // save it if you need to display it
+        }
+
         global $imSettings;
         $html = "";
         $found_products = array();
+        $found_weight = array();
         $found_count = array();
 
         foreach ($imSettings['search']['products'] as $id => $product) {
@@ -5718,16 +5768,71 @@ class imSearch {
             $t_description = strip_tags(imstrtolower($product['description']));
             $t_sku = strip_tags(imstrtolower($product['sku']));
 
-            // Conto il numero di match nel titolo
-            foreach ($queries as $query) {
-                $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_title, $matches);
-                if ($t_count !== false) {
-                    $weight += ($t_count * 4);
-                    $count += $t_count;
+            // Looking for an exact match in the title
+            $full_query = imstrtolower(implode(' ', $queries));
+            if (strpos($t_title, $full_query) !== false) {
+                $weight += 50;  // Super bonus for exact phrase match
+            }
+
+            // --- PROXIMITY SCORING ---
+            // split the title into words
+            $words = preg_split('/\s+/', $t_title);
+            $indexes = [];
+            foreach ($queries as $q) {
+                foreach ($words as $i => $w) {
+                    if ($w === $q) {
+                        $indexes[] = $i;
+                        break;
+                    }
+                }
+            }
+            if (count($indexes) > 1) {
+                // calculate proximity score (still works even if words are out of order)
+                $distance = max($indexes) - min($indexes);
+                $num = count($indexes);
+                $proximity_score = ($num * 10) - $distance;
+                if ($proximity_score > 0) {
+                    $weight += $proximity_score;
+                }
+                // correct order bonus: check if indexes are in ascending order
+                $in_order = true;
+                for ($i = 1; $i < count($indexes); $i++) {
+                    if ($indexes[$i] <= $indexes[$i - 1]) {
+                        $in_order = false;
+                        break;
+                    }
+                }
+                if ($in_order) {
+                    $weight += 5; // bonus only if the words appear in the correct order
                 }
             }
 
-            // Conto il numero di match nella descrizione
+            // Count the number of matches in the title
+            foreach ($queries as $query) {
+
+                // Fuzzy match for each word in the title
+                $words = preg_split('/\s+/', $t_title);
+                $bestDistance = 99;
+                foreach ($words as $w) {
+                    $d = levenshtein($query, $w);
+                    if ($d < $bestDistance) {
+                        $bestDistance = $d;
+                    }
+                }
+                if ($bestDistance === 0) { // exact match
+                    $weight += 4;
+                    $count +=1;
+                } elseif ($bestDistance === 1) { // minimal typo
+                    $weight += 3;
+                    $count +=1;
+                } elseif ($bestDistance === 2 && strlen($query) > 4) { // major typo, but quite a long word
+                    $weight += 1;
+                    $count +=1;
+                }
+
+            }
+
+            // Count the number of matches in the description
             foreach ($queries as $query) {
                 $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_description, $matches);
                 if ($t_count !== false) {
@@ -5736,7 +5841,7 @@ class imSearch {
                 }
             }
 
-            // Conto il numero di match nello SKU
+            // Count the number of matches in the SKU
             foreach ($queries as $query) {
                 $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_sku, $matches);
                 if ($t_count !== false) {
@@ -5752,10 +5857,24 @@ class imSearch {
             }
         }
 
+        // Show the autocorrection suggestion
+        if (!empty($this->autocorrect)) {
+            $query_param = urlencode($this->autocorrect);
+            $html = "<div class=\"imSearchSuggestion\">" 
+                . str_replace(
+                    "{0}", 
+                    "<a class=\"imCssLink\" href=\"?search={$query_param}&type=products\"><strong>{$this->autocorrect}</strong></a>", 
+                    l10n('cart_search_autocorrect_hint', "Did you mean: {0}?")
+                ) 
+                . "</div>" 
+                . $html;
+        }
+
         if (count($found_count)) {
             arsort($found_weight);
             $i = 0;
-            foreach ($found_products as $id => $product) {
+            foreach ($found_weight as $id => $weight) {
+                $product = $found_products[$id];
                 $i++;
                 if (($i > $this->page * $this->results_per_page) && ($i <= ($this->page + 1) * $this->results_per_page)) {
                     $count = $found_count[$id];
@@ -5769,7 +5888,11 @@ class imSearch {
                     $html .= "<h3>" . $product['title_link'] . "</h3>";
                     $html .= "<span>" . $product['price'] . "<a class=\"imCssLink\" href=\"#\"  onclick=\"x5engine.cart.ui.addToCart('" . $id . "', 1);\" style=\"margin-inline-start: 5px;\">" . l10n('cart_add') . "</a></span>";
                     $html .= "</div>";
-                    $html .= "<p>" . strip_tags($product['description']) . "</p>";
+                    $productDescripionHighlight = strip_tags($product['description']);
+                    foreach ($queries as $query) {
+                        $productDescripionHighlight = str_replace($query, "<strong>".$query."</strong>", $productDescripionHighlight);
+                    }
+                    $html .= "<p>" . $productDescripionHighlight . "</p>";
                     $html .= "</div>";
                     // Close the container
                     $html .= "</div>";
@@ -5980,10 +6103,12 @@ class imSearch {
         $content = "";
         $emptyResultsHtml = "<div style=\"margin-top: 15px; text-align: center; font-weight: bold;\">" . l10n('search_empty') . "</div>\n";
 
-        $html .= "<div class=\"imPageSearchField\"><form method=\"get\" action=\"imsearch.php\" role=\"search\">";
-        $html .= "<input value=\"" . htmlspecialchars($keys, ENT_COMPAT, 'UTF-8') . "\" type=\"text\" name=\"search\" aria-label=\"" . l10n('search_search') . "\" autofocus/>";
-        $html .= "<input style=\"margin-inline-start: 6px;\" type=\"submit\" value=\"" . l10n('search_search') . "\">";
-        $html .= "</form></div>\n";
+        $searchFieldHtml .= "<div class=\"imPageSearchField\"><form method=\"get\" action=\"imsearch.php\" role=\"search\">";
+        $searchFieldHtml .= "<input placeholder=\"" . l10n("cart_search_page_custom_research_placeholder") . "\" value=\"" . htmlspecialchars($keys, ENT_COMPAT, 'UTF-8') . "\" type=\"text\" name=\"search\" aria-label=\"" . l10n('search_search') . "\" autofocus/>";
+        $searchFieldHtml .= "<button type=\"submit\" value=\"" . l10n('search_search') . "\" >";
+        $searchFieldHtml .= "<svg aria-hidden=\"true\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 250.313 250.313\" xml:space=\"preserve\"><g><path style=\"fill-rule:evenodd;clip-rule:evenodd;\" d=\"M244.186,214.604l-54.379-54.378c-0.289-0.289-0.628-0.491-0.93-0.76 c10.7-16.231,16.945-35.66,16.945-56.554C205.822,46.075,159.747,0,102.911,0S0,46.075,0,102.911	c0,56.835,46.074,102.911,102.91,102.911c20.895,0,40.323-6.245,56.554-16.945c0.269,0.301,0.47,0.64,0.759,0.929l54.38,54.38	c8.169,8.168,21.413,8.168,29.583,0C252.354,236.017,252.354,222.773,244.186,214.604z M102.911,170.146	c-37.134,0-67.236-30.102-67.236-67.235c0-37.134,30.103-67.236,67.236-67.236c37.132,0,67.235,30.103,67.235,67.236 C170.146,140.044,140.043,170.146,102.911,170.146z\"></path></g></svg>";
+        $searchFieldHtml .= "</button>";
+        $searchFieldHtml .= "</form></div>\n";
 
         // Exit if no search query was given
         if (trim($keys) == "" || $keys == null) {
@@ -6074,17 +6199,28 @@ class imSearch {
             return $html;
         }
 
-        $sidebar = "<ul>\n";
-        if ($pages['count'] > 0)
-            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=pages\">" . l10n('search_pages') . " (" . $pages['count'] . ")</a></span></li>\n";
-        if ($blog['count'] > 0)
-            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=blog\">" . l10n('search_blog') . " (" . $blog['count'] . ")</a></span></li>\n";
-        if ($products['count'] > 0)
-            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=products\">" . l10n('search_products') . " (" . $products['count'] . ")</a></span></li>\n";
-        if ($images['count'] > 0)
-            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=images\">" . l10n('search_images') . " (" . $images['count'] . ")</a></span></li>\n";
-        if ($videos['count'] > 0)
-            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=videos\">" . l10n('search_videos') . " (" . $videos['count'] . ")</a></span></li>\n";
+        $sidebar = $searchFieldHtml . "<ul>\n";
+        $firstDefaultActiveSection = !isset($_GET["type"]) || ( isset($_GET["type"]) && $_GET["type"]!="pages" && $_GET["type"]!="blog" && $_GET["type"]!="products" && $_GET["type"]!="images" && $_GET["type"]!="videos" );
+        if ($pages['count'] > 0) {
+            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=pages\">"      . ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="pages" ? "<b>" : "" )       . l10n('search_pages')    . " (" . $pages['count']    . ")". ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="pages" ? "</b>" : "" ) . "</a></span></li>\n";
+            $firstDefaultActiveSection = false;
+        }
+        if ($blog['count'] > 0) {
+            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=blog\">"       . ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="blog" ? "<b>" : "" )        . l10n('search_blog')     . " (" . $blog['count']     . ")". ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="blog" ? "</b>" : "" )  . "</a></span></li>\n";
+            $firstDefaultActiveSection = false;
+        }
+        if ($products['count'] > 0) {
+            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=products\">"   . ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="products" ? "<b>" : "" )    . l10n('search_products') . " (" . $products['count'] . ")". ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="products" ? "</b>" : "" ) . "</a></span></li>\n";
+            $firstDefaultActiveSection = false;
+        }
+        if ($images['count'] > 0) {
+            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=images\">"     . ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="images" ? "<b>" : "" )      . l10n('search_images')   . " (" . $images['count']   . ")". ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="images" ? "</b>" : "" ) . "</a></span></li>\n";
+            $firstDefaultActiveSection = false;
+        }
+        if ($videos['count'] > 0) {
+            $sidebar .= "\t<li><span class=\"imScMnTxt\"><a href=\"imsearch.php?search=" . urlencode($keys) . "&type=videos\">"     . ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="videos" ? "<b>" : "" )      . l10n('search_videos')   . " (" . $videos['count']   . ")". ( $firstDefaultActiveSection || isset($_GET["type"]) && $_GET["type"]=="videos" ? "</b>" : "" ) . "</a></span></li>\n";
+            $firstDefaultActiveSection = false;
+        }
         $sidebar .= "</ul>\n";
 
         $html .= "<div id=\"imSearchResults\">\n";
@@ -6818,45 +6954,62 @@ class ImTopic
 
         echo "<div class=\"topic-form\">
               <form id=\"" . $id ."\" class=\"comments-and-ratings-topic-form\" action=\"" . $this->posturl . "\" method=\"post\">
-                <input type=\"hidden\" name=\"post_id\" value=\"" . $this->id . "\"/>
-                <div class=\"topic-form-row\">
-                    <div class=\"topic-form-item\">
-                        <label for=\"" . $id . "-name\">" . l10n('blog_name') . $requiredMark . "</label> 
-                        <input type=\"text\" id=\"" . $id . "-name\" name=\"name\" class=\"imfield mandatory striptags trim\" aria-required=\"true\"/>
-                    </div>
-                    <div class=\"topic-form-item second-column\">
-                        <label for=\"" . $id . "-url\">" . l10n('blog_website') . "</label>
-                        <input type=\"text\" id=\"" . $id . "-url\" name=\"url\" />
-                    </div>
-                </div>
-                <div class=\"topic-form-row\">
-                    <div class=\"topic-form-item\">
-                        <label for=\"" . $id . "-email\">" . l10n('blog_email') . $requiredMark . "</label>
-                        <input type=\"text\" id=\"" . $id . "-email\" name=\"email\" class=\"imfield mandatory valEmail\" aria-required=\"true\"/>
-                    </div>
-                    <div class=\"topic-form-item second-column empty-column\">
-                    </div>
-                </div>";
+                <input type=\"hidden\" name=\"post_id\" value=\"" . $this->id . "\"/>";
 
+        // Rating stars row
         if ($rating) {
             //note: star-full Input occupies the same width as the stars and is used to understand if at least one star has been selected
             //and to make the "mandatory" tip appear to the right of the stars: the span kills 0% if a score is not selected.
             echo "<div class=\"topic-form-row\">
                     <div class=\"topic-form-item rating\">
-                        <label for=\"" . $id . "-star-full\">" . l10n('blog_rating') . $requiredMark . "</label>
+                        <label class=\"sr-only\" for=\"" . $id . "-star-full\">" . l10n('blog_rating') . $requiredMark . "</label>
                         <span class=\"topic-star-container-big variable-star-rating\" aria-label=\"" . l10n('comments_and_ratings_selected_rate') . " 0\">";
                             $this->getStarRatingHTML();
-            echo "          <input type=\"text\" id=\"" . $id . "-star-full\" name=\"star-full\" class=\"imfield mandatory\" style=\"width: 160px; visibility: hidden; display: none;\"/>
+            echo "          <input type=\"text\" id=\"" . $id . "-star-full\" name=\"star-full\" class=\"imfield mandatory\" style=\"width: 0px; height: 0px; opacity: 0; position: relative; top: -30px; left: 150px; z-index: -1;\"/>
                         </span>
                     </div>
                 </div>";
         }
+
+        // "Write a comment" row
+        echo "  <div class=\"topic-form-row\"><span class=\"title\">" . l10n("comments_and_ratings_add_review_title", l10n("comments_and_ratings_add_review")) . "</span></div>";
+
+        // Name & Email row
+        echo "  <div class=\"topic-form-row\">
+                    <div class=\"topic-form-item\">
+                        <label class=\"sr-only\" for=\"" . $id . "-name\">" . l10n('comments_and_ratings_name', "Name") . $requiredMark . "</label> 
+                        <input type=\"text\" id=\"" . $id . "-name\" name=\"name\" class=\"imfield mandatory striptags trim\" placeholder=\"" . l10n('comments_and_ratings_name', "Name") . "\" aria-required=\"true\"/>
+                    </div>
+                    <div class=\"topic-form-item second-column\">
+                        <label class=\"sr-only\" for=\"" . $id . "-email\">" . l10n('comments_and_ratings_email', "E-Mail") . $requiredMark . "</label>
+                        <input type=\"text\" id=\"" . $id . "-email\" name=\"email\" class=\"imfield mandatory valEmail\" placeholder=\"" . l10n('comments_and_ratings_email', "E-Mail") . "\" aria-required=\"true\"/>
+
+                        <button type=\"button\" class=\"topic-form-item-email-info\" 
+                            onmouseover=\"
+                                x5engine.imTip.Show(this , { 
+                                    target : $(this).find('img') , 
+                                    text: `<div>" . l10n("comments_and_ratings_email_tip", "the email address will be visible only to the author and will not be published on the site") . "</div>` 
+                            } ) \" 
+                            onclick=\"$(this).trigger('mouseover')\" 
+                        >
+                            <img width=\"20\" height=\"20\" 
+                                loading=\"lazy\" 
+                                alt=\"" . l10n("comments_and_ratings_email_tip") . "\"
+                                src=\"".$imSettings["general"]["url"]."res/info.png\"
+                            />
+                        </button>
+
+                    </div>
+                </div>";
+
+        // Comment textarea row
         echo "<div class=\"topic-form-row\">
                 <div class=\"topic-form-item\">
-                    <label for=\"" . $id . "-body\">" . l10n('blog_message') . $requiredMark . "</label>
-                    <textarea maxlength=\"1500\" id=\"" . $id . "-body\" name=\"body\" class=\"imfield mandatory striptags trim\" style=\"width: 100%; height: 100px;\" aria-required=\"true\"></textarea>
+                    <label class=\"sr-only\" for=\"" . $id . "-body\">" . l10n('comments_and_ratings_message', "Message") . $requiredMark . "</label>
+                    <textarea maxlength=\"3000\" id=\"" . $id . "-body\" name=\"body\" class=\"imfield mandatory striptags trim\" style=\"width: 100%; height: 100px;\" placeholder=\"" . l10n('comments_and_ratings_message', "Message") . "\" aria-required=\"true\"></textarea>
                 </div>
         </div>";
+        
         if ($captcha) {
             echo ImTopic::$captcha_code;
         }
@@ -6876,10 +7029,11 @@ class ImTopic
      * @param {boolean} $rating      TRUE to show the ratings
      * @param {boolean} $admin       TRUE to show approved and unapproved comments
      * @param {boolean} $hideifempty true to hide the summary if there are no comments
+     * @param {string}  $type        The topic type ("guestbook"|"productpage"|"blog")
      *
      * @return {Void}
      */
-    function showSummary($ratingAndStars = true, $admin = false, $hideifempty = true)
+    function showSummary($ratingAndStars = true, $admin = false, $hideifempty = true, $type = "guestbook")
     {
         $data = $this->getRatingsDataSummary($admin);
 
@@ -6891,13 +7045,13 @@ class ImTopic
             /** case comment and star **/
 
             //add block of topic average
-            echo $data["totalComments"] == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($data["totalComments"], $data["vote"]);
+            echo $data["totalComments"] == 0 ? $this->getTopicAverage(0, 0) : $this->getTopicAverage($data["totalComments"], $data["vote"]);
 
             //add block topic bars
             echo $this->getTopicBars($data["votescount"], $data["ratingByValue"]);
 
             //add block of add review button
-            echo $this->getTopicAddReviewHtml();
+            echo $this->getTopicAddReviewHtml($type);
         }
         else {
             /** case only comment **/
@@ -6910,7 +7064,7 @@ class ImTopic
             echo "</div>\n";
 
             //add block of button of topic to add review
-            echo $this->getTopicAddReviewHtml();
+            echo $this->getTopicAddReviewHtml($type);
             
             echo "<div class=\"topic-space\">";
                 echo "<div class=\"fill\"></div>";
@@ -7009,12 +7163,20 @@ class ImTopic
     {
         $average = "<div class=\"topic-average\">";
         $average .=     "<div style=\"margin-bottom: 5px;\">";
-        $average .=         "<div class=\"rating-value\"><span class=\"big\">" . ( $vote == 0 ? "-" : number_format($vote, 1) ) . "</span>&nbsp;/&nbsp;<span>5</span></div>";
+        $average .=         "<div class=\"rating-value\"><span class=\"big\">" . ( $vote == 0 ? "0" : number_format($vote, 1) ) . "</span>&nbsp;/&nbsp;<span>5</span></div>";
         $average .=     "</div>";
-        $average .=     "<span class=\"topic-star-container-big\" title=\"" . number_format($vote, 1) . "/5\">";
-        $average .=         "<span class=\"topic-star-fixer-big\" style=\"width: " . round($vote/5 * 100) . "%;\"></span>";
-        $average .=     "</span>\n";
-        $average .=     "<div class=\"label-review\">" . $totalComments . "&nbsp;" . ( $totalComments == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
+
+        $average .=     "<div style=\"margin-bottom: 5px;\">";
+        $average .=         "<span class=\"topic-star-container-big\" title=\"" . number_format($vote, 1) . "/5\" role=\"img\">";
+        $average .=             "<span class=\"topic-star-fixer-big\" style=\"width: " . round($vote/5 * 100) . "%;\"></span>";
+        $average .=         "</span>\n";
+        $average .=     "</div>";
+
+        if ( $totalComments > 0 ) {
+            $average .=     "<div class=\"label-review\">" . $totalComments . "&nbsp;" . ( $totalComments == 1 ? l10n('comments_and_ratings_label_review') : l10n('comments_and_ratings_label_reviews') ) . "</div>";
+        } else {
+            $average .=     "<div class=\"label-no-review\">" . l10n('comments_and_ratings_no_reviews') . "</div>";
+        }
         $average .=     "<div class=\"fill\"></div>";
         $average .= "</div>\n"; //end topic-average
         return $average;
@@ -7028,26 +7190,38 @@ class ImTopic
     {
         $topicBars =  "<div class=\"topic-bars\">";
         for ($i = 5; $i > 0; $i--) {
-            $topicBars .= "<div class=\"topic-bar\">";
-            $topicBars .= "<div class=\"bar-star-n\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_rate", "Rate:") . "</span>" . $i . "&nbsp; <span class=\"topic-star-fixer-small star\"></span></div>\n";  
-            $topicBars .= "<div class=\"bar-progress\"><span style=\"width:". ($votescount > 0 ? ( ($ratingByValue[$i] * 100) / $votescount ) : 0) ."%;\"></span></div>\n";        
-            $topicBars .= "<div class=\"bar-total\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_number_of_rates", "Number of rates:") . "</span>". $ratingByValue[$i] ."</div>\n";
-            $topicBars .= "</div>\n"; //end topic-bar
+            $topicBars .= "  <div class=\"topic-bar\">";
+            $topicBars .= "    <div class=\"bar-star-n\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_rate", "Rate:") . "</span>" . $i . "</div>\n";  
+            $topicBars .= "    <div class=\"bar-progress\"><span style=\"width:". ($votescount > 0 ? ( ($ratingByValue[$i] * 100) / $votescount ) : 0) ."%;\"></span></div>\n";        
+            $topicBars .= "    <div class=\"bar-total\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_number_of_rates", "Number of rates:") . "</span>". $ratingByValue[$i] ."&nbsp;</div>\n";
+            $topicBars .= "    <div class=\"bar-percentage\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_percentage_of_rates", "Percentage of rates:") . "</span>(". ($votescount > 0 ? round( ($ratingByValue[$i] * 100) / $votescount ) : 0) ."%)</div>\n";
+            $topicBars .= "  </div>\n"; //end topic-bar
         }
-        $topicBars .= "<div class=\"fill\"></div>";
+        $topicBars .= "  <div class=\"fill\"></div>";
         $topicBars .= "</div>\n"; //end topic-bars
         return $topicBars;
     }
 
     /**
      * Returns html of button to add add review of topic
+     * @param {string}  $type        The topic type ("guestbook"|"productpage"|"blog")
      * @return string
      */
-    function getTopicAddReviewHtml()
+    function getTopicAddReviewHtml($type = "guestbook")
     {
+
+        $ctaStr = l10n("comments_and_ratings_add_review_label_object", "Your opinion is important to us and helps us improve our service.");
+        if ($type == "productpage") {
+            $ctaStr = l10n("comments_and_ratings_add_review_label_ecommerce", "Your opinion is important to us and helps us improve our service.");
+        } else if ($type == "blog") {
+            $ctaStr = l10n("comments_and_ratings_add_review_label_blog", "Your opinion is important to us and helps us improve our service.");
+        }
+
         $addReview = "<div class=\"topic-add-review\">";
-        $addReview .= "<input type=\"button\" class=\"topic-add-review-btn\" value=\"" . l10n('comments_and_ratings_add_review') . "\" />";
-        $addReview .= "<div class=\"fill\"></div>";
+        $addReview .= "  <div class=\"topic-add-review-inner\">";
+        $addReview .= "    <input type=\"button\" class=\"topic-add-review-btn\" value=\"" . l10n('comments_and_ratings_add_review') . "\" />";
+        $addReview .= "    <div class=\"fill\">" . $ctaStr . "</div>";
+        $addReview .= "  </div>";
         $addReview .= "</div>";
         return $addReview;
     }
@@ -7085,9 +7259,9 @@ class ImTopic
             return;
         }
 
-        echo "<div class=\"topic-comments " . ($showOnMultipleColumns  == true ? "multiple-columns" : "one-columns") . "\">\n";
+        echo "<div class=\"topic-comments multiple-columns\">\n";
         if ( count($c) > 0 ) {
-            $ncolumns = min(count($c), 4);
+            $ncolumns = $showOnMultipleColumns ? min(count($c), 4) : 1;
 
             // Show the comments
             $i = 0;
@@ -7108,7 +7282,7 @@ class ImTopic
                             $body = $new_body;
                         }
                         while ($delta > 0);
-                        $bodyTooLong = mb_strlen( $body ) > 1500;
+                        $bodyTooLong = mb_strlen( $body ) > 3000;
                     }
                     else {
                         do {
@@ -7117,12 +7291,12 @@ class ImTopic
                             $body = $new_body;
                         }
                         while ($delta > 0);
-                        $bodyTooLong = strlen( $body ) > 1500;
+                        $bodyTooLong = strlen( $body ) > 3000;
                     }
                     if ( $bodyTooLong ) {
                         // WARNING: Maybe you don't see them, there are invisibile spaces inside quotes in the next lines
                         $body = str_replace(array("<br>", "<br />"), "​", $comment['body']);
-                        $body = substr($body, 0, 1500) . '...';
+                        $body = substr($body, 0, 3000) . '...';
                         $body = str_replace("​", "<br>", $body);
                     }
                     else {
@@ -7137,21 +7311,23 @@ class ImTopic
                     echo "<div class=\"topic-comment-info-body\">\n";
                     echo "<div class=\"topic-comment-info\">\n";
                     echo "<div class=\"topic-comment-avatar\">" . $gravatar->toHTML() . "</div>\n";
-                    if ( $showOnMultipleColumns ) {
-                        echo "<div class=\"topic-comment-info-details\">\n";
-                    }
-                    echo "<div class=\"topic-comment-user\">";
-                    echo stristr($comment['url'], "http") ? "<a href=\"" . $comment['url'] . "\" target=\"_blank\" " . (strpos($comment['url'], $imSettings['general']['url']) === false ? 'rel="nofollow"' : '') . "><span>" . $comment['name'] . "</span></a>" : "<span>" . $comment['name'] . "</span>";
-                    echo "</div>";
-                    echo "<div class=\"topic-comment-date imBreadcrumb\" datetime=\"" . $comment['timestamp'] . "\">" . $formatDate . "</div>\n";
+
+                    echo "<div class=\"topic-comment-info-details\">\n";
+
+
                     if ( $rating && isset($comment['rating']) && $comment['rating'] > 0 ) {
                         echo "<div><span class=\"topic-star-container-small\" aria-label=\"" . $comment['rating'] . "/5\" role=\"img\">
                                     <span class=\"topic-star-fixer-small\" style=\"width: " . round($comment['rating']/5 * 100) . "%;\"></span>
                             </span></div>\n";
                     }
-                    if ( $showOnMultipleColumns ) {
-                        echo "</div>\n"; // closed topic-comment-info-details
-                    }
+
+                    echo "<div class=\"topic-comment-user\">";
+                    echo stristr($comment['url'], "http") ? "<a href=\"" . $comment['url'] . "\" target=\"_blank\" " . (strpos($comment['url'], $imSettings['general']['url']) === false ? 'rel="nofollow"' : '') . "><span>" . $comment['name'] . "</span></a>" : "<span>" . $comment['name'] . "</span>";
+                    echo "</div>";
+                    echo "<div class=\"topic-comment-date imBreadcrumb\" datetime=\"" . $comment['timestamp'] . "\">" . $formatDate . "</div>\n";
+
+                    echo "</div>\n"; // closed topic-comment-info-details
+
                     echo "</div>\n"; // closed topic-info
                     echo "<div class=\"topic-comment-body\">" . $body . "</div>\n";
                     echo "</div>\n"; // closed topic-info-body
@@ -7172,10 +7348,8 @@ class ImTopic
         }
         echo "</div>\n";
 
-        if ( $showOnMultipleColumns ) {
-            echo "<script src=\"" . $this->basePathRes ."res/masonry.pkgd.min.js\" ></script>\n";
-            echo "<script>x5engine.boot.push(\"x5engine.topicCommentsMultipleColumnsResize('" . $this->target . "', " . $ncolumns . ")\", false, 6);</script>\n";
-        }
+        echo "<script src=\"" . $this->basePathRes ."res/masonry.pkgd.min.js\" ></script>\n";
+        echo "<script>x5engine.boot.push(\"x5engine.topicCommentsMultipleColumnsResize('" . $this->target . "', " . $ncolumns . ")\", false, 6);</script>\n";
 
         // Show the pagination
         $this->showPagination($page);
@@ -7379,7 +7553,7 @@ class ImTopic
         echo "<div id=\"" . $this->id . "-topic-summary\" class=\""  . $classContainer . "\">\n";
 
         //add block of topic average
-        echo $data["totalComments"] == 0 ? $this->getTopicZeroAverage() : $this->getTopicAverage($data["totalComments"], $data["vote"]);
+        echo $data["totalComments"] == 0 ? $this->getTopicAverage(0, 0) : $this->getTopicAverage($data["totalComments"], $data["vote"]);
 
         //add block topic bars
         echo $this->getTopicBars($data["totalComments"], $data["ratingByValue"]);

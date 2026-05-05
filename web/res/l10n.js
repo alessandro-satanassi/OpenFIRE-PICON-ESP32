@@ -251,4 +251,14 @@
 	l('blog_read_time', '[MM] minuti');
 	l('guestbook_new_comment_object', 'Guestbook: Nuovo commento');
 	l('guestbook_new_comment_text', 'E\' stato inserito un nuovo commento al guestbook');
+	l('comments_and_ratings_add_review_label_blog', 'La tua opinione è importante per noi e ci aiuta a migliorare il servizio.');
+	l('comments_and_ratings_add_review_label_ecommerce', 'La tua opinione è importante per noi e ci aiuta a migliorare il servizio.');
+	l('comments_and_ratings_add_review_label_object', 'La tua opinione è importante per noi e ci aiuta a migliorare il servizio.');
+	l('comments_and_ratings_add_review_title', 'Scrivi una recensione');
+	l('comments_and_ratings_average_rate', 'Voto medio:');
+	l('comments_and_ratings_email_tip', 'L\'indirizzo email sarà visibile solo all\'autore e non verrà pubblicato sul sito.');
+	l('comments_and_ratings_go_to_comments', 'Visualizza recensioni');
+	l('comments_and_ratings_percentage_of_rates', 'Percentuale di voti:');
+	l('form_goback', 'Indietro');
+	l('form_gonext', 'Avanti');
 })( x5engine );
