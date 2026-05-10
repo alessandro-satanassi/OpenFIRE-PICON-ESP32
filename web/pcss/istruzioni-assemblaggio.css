@@ -2917,7 +2917,7 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imCellStyleGraphics_180 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: rgba(255, 255, 255, 1); border-start-start-radius: 20px; border-start-end-radius: 20px; border-end-start-radius: 20px; border-end-end-radius: 20px;  }
 #imCellStyleBorders_180 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
 
-#imObjectImage_12_180 #imObjectImage_12_180_container { width: 449px; max-width: 100%; line-height: 0; }
+#imObjectImage_12_180 #imObjectImage_12_180_container { width: 448px; max-width: 100%; line-height: 0; }
 #imObjectImage_12_180 { vertical-align: top; margin-top: 0px; margin-bottom: 0px; margin-inline-start: auto; margin-inline-end: auto; }
 #imObjectImage_12_180 #imObjectImage_12_180_container img { width: 100%; height: auto; vertical-align: top; }#imCell_181 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
 #imObjectImage_12_181 { position: relative; align-self: center; justify-self: center; max-width: 100%; box-sizing: border-box; z-index: 3; }
@@ -4020,7 +4020,7 @@ max-height: 100%; position: absolute; top: 0; bottom: 0; inset-inline-start: 3px
 #imCellStyleGraphics_222 { grid-row: 1 / -1; grid-column: 1 / -1; background-color: rgba(255, 255, 255, 1); border-start-start-radius: 20px; border-start-end-radius: 20px; border-end-start-radius: 20px; border-end-end-radius: 20px;  }
 #imCellStyleBorders_222 { grid-row: 1 / -1; grid-column: 1 / -1; z-index: 2; }
 
-#imObjectImage_12_222 #imObjectImage_12_222_container { width: 300px; max-width: 100%; line-height: 0; }
+#imObjectImage_12_222 #imObjectImage_12_222_container { width: 455px; max-width: 100%; line-height: 0; }
 #imObjectImage_12_222 { vertical-align: top; margin-top: 0px; margin-bottom: 0px; margin-inline-start: auto; margin-inline-end: auto; }
 #imObjectImage_12_222 #imObjectImage_12_222_container img { width: 100%; height: auto; vertical-align: top; }#imCell_223 { grid-template-columns: 100%; position: relative; box-sizing: border-box; }
 #imObjectImage_12_223 { position: relative; align-self: center; justify-self: center; max-width: 100%; box-sizing: border-box; z-index: 3; }

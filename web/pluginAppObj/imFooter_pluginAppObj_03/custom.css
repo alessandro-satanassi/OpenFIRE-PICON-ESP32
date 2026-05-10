@@ -56,7 +56,7 @@
 }
 
 #soc_imFooter_pluginAppObj_03 .flat .social-icon svg{
-	fill: rgb(255,255,255);
+	fill: rgba(255, 255, 255, 1);
 }
 
 #soc_imFooter_pluginAppObj_03 .social-icon .fallbacktext{
@@ -73,7 +73,7 @@
 	font-family: Arial, sans-serif;
 	font-size: 14px;
 	font-weight: bold;
-	color: rgb(255,255,255);
+	color: rgba(255, 255, 255, 1);
 	text-decoration: none;
 }
 

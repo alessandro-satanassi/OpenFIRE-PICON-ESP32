@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="style/template.css?2026-1-7-1" media="screen" />
 		
 		<link rel="stylesheet" href="pluginAppObj/imFooter_pluginAppObj_03/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/imsearch.css?2026-1-7-1-639131648528399230" media="screen,print" />
+		<link rel="stylesheet" href="pcss/imsearch.css?2026-1-7-1-639140231577323687" media="screen,print" />
 		<script src="res/jquery.js?2026-1-7-1"></script>
 		<script src="res/x5engine.js?2026-1-7-1" data-files-version="2026-1-7-1"></script>
 		
@@ -25,7 +25,7 @@
 			x5engine.utils.currentPagePath = 'imsearch.php';
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?2026-1-7-1-639131648528356454" type="image/png" />
+		<link rel="icon" href="favicon.png?2026-1-7-1-639140231577283140" type="image/png" />
 		<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 	</head>
 	<body>
@@ -202,7 +202,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 	</div>
 
 </div>
-</div><div id="imFooter_pluginAppObj_03_wrapper" class="template-object-wrapper"><!-- Social Icons v.23 --><div id="imFooter_pluginAppObj_03">
+</div><div id="imFooter_pluginAppObj_03_wrapper" class="template-object-wrapper"><!-- Social Icons v.24 --><div id="imFooter_pluginAppObj_03">
             <div id="soc_imFooter_pluginAppObj_03"  >
                 <div class="wrapper horizontal flat none">
                 	<div class='social-icon flat'><a href='https://www.youtube.com/@satanassialessandro' target='_blank' aria-label='youtube'><svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g><path d="M89.2,34S88.42,28.49,86,26.06c-3-3.19-6.45-3.14-8-3.32C66.81,21.93,50,22,50,22h0s-16.79-.07-28,0.74c-1.56.19-5,.17-8,3.36C11.58,28.53,10.8,34,10.8,34A120.47,120.47,0,0,0,10,47V53A121,121,0,0,0,10.8,66s0.78,5.51,3.18,7.94c3,3.19,7,3.09,8.82,3.42,6.4,0.61,27.2.8,27.2,0.8s16.81,0,28-.83a11.44,11.44,0,0,0,8-3.39C88.42,71.48,89.2,66,89.2,66A121.16,121.16,0,0,0,90,53V47A121.16,121.16,0,0,0,89.2,34ZM41.74,60.38V37.9L63.35,49.18Z"/></g></svg><span class='fallbacktext'>Yt</span></a></div>
