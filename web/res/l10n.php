@@ -260,6 +260,9 @@
 	$l10n['comments_and_ratings_percentage_of_rates'] = 'Percentuale di voti:';
 	$l10n['form_goback'] = 'Indietro';
 	$l10n['form_gonext'] = 'Avanti';
+	$l10n['comments_and_ratings_email'] = 'E-Mail';
+	$l10n['comments_and_ratings_message'] = 'Messaggio';
+	$l10n['comments_and_ratings_name'] = 'Nome';
 
 
 // End of file l10n.php

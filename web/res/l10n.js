@@ -261,4 +261,7 @@
 	l('comments_and_ratings_percentage_of_rates', 'Percentuale di voti:');
 	l('form_goback', 'Indietro');
 	l('form_gonext', 'Avanti');
+	l('comments_and_ratings_email', 'E-Mail');
+	l('comments_and_ratings_message', 'Messaggio');
+	l('comments_and_ratings_name', 'Nome');
 })( x5engine );
