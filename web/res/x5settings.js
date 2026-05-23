@@ -8,7 +8,7 @@
 	s.dateFormat = 'dd MMM yyyy';
 	s.dateFormatExt = 'dddd dd MMM yyyy';
 	s.rtl = false;
-	s.version = '2026-1-8-0';
+	s.version = '2026-1-9-0';
 	b.push(function () {
 		x.setupDateTime();
 		x.imAccess.showLogout();
