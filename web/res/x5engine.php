@@ -754,12 +754,7 @@ class imBlog
                 echo " &middot; <svg aria-labelledby=\"blog_post_" . $id . "_read_time\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"square\" stroke-width=\"2px\" color=\"currentColor\" viewBox=\"0 0 24 24\" width=\"1.2em\" height=\"1.2em\" style=\"vertical-align: text-top;\">";
                 echo "<title id=\"blog_post_" . $id . "_read_time\">" . l10n("blog_icon_read_time") . "</title>";
                 echo "<circle cx=\"12\" cy=\"12\" r=\"10\"></circle><path d=\"M12 5v7l4 4\"></path></svg>&nbsp;";
-                $seconds = ceil($bp['word_count'] * 60 / $bs['article_read_speed']);
-                $seconds = floor(($seconds + 14) / 15) * 15; // round up seconds at multiple of 15 seconds
-                if ($seconds <= 60)
-                    echo "1:00";
-                else
-                    echo floor($seconds / 60) . ":" . ($seconds % 60 < 10 ? "0" : "") . ($seconds % 60);
+                echo ( str_replace('[MM]', $bp["readTimeMinutes"], l10n("blog_read_time", "[MM] minutes")) );
             }
             echo "</span>";
 
@@ -1061,7 +1056,8 @@ class imBlog
 			"blog_icon_category" => l10n("blog_icon_category"),
 			"blog_icon_author" => l10n("blog_icon_author"),
 			"blog_icon_date" => l10n("blog_icon_date"),
-			"blog_icon_read_time" => l10n("blog_icon_read_time")
+			"blog_icon_read_time" => l10n("blog_icon_read_time"),
+            "blog_read_time" => l10n("blog_read_time", "[MM] minutes")
 		);
 
 		return $strings;
@@ -1070,7 +1066,7 @@ class imBlog
 
 
 
-	function customCardBreakpointString( $cardStyle ){
+	function customCardBreakpointString( $cardStyle, $widths = null ){
 
 		$breakpointString = "";
 		$cardsperrowString = "";
@@ -1085,8 +1081,7 @@ class imBlog
 		if ( $numBreakPoints > 0 ) {
 
 			$minContentW = 200;
-			$minCardW = $minContentW;
-			$minCardW = $minCardW + $card["margin"] + $card["margin"];
+			$minCardW = $minContentW + $card["border"]["widths"]["left"] + $card["border"]["widths"]["right"];
 			if ( $card["type"] == "leftcoverrightcontents" || $card["type"] == "leftcontentsrightcover" ) {
                 $minCardW = floor( $minContentW / ( ( 100.0 - $card["image"]["percentSize"] ) / 100.0 ) ) + $card["border"]["widths"]["left"] + $card["border"]["widths"]["right"];
 			}
@@ -1095,15 +1090,19 @@ class imBlog
 			$strPieceCPRdesktop = "";
 			for ( $i = 0 ; $i < $numBreakPoints ; $i++ ) {
 
-				$maxAvailW = $breakPoints[$i]["end"];
-				if ( $breakPoints[$i]["end"] == 0 ) {
-					$maxAvailW = $breakPoints[$i]["start"];
-                    if ( $maxAvailW == "max" ) {
-					    $maxAvailW = $breakPoints[$i]["width"];
-                    }
+                if ( isset($widths) && isset($widths[$i]) && $widths[$i] > 0 ) {
+                    $maxAvailW = $widths[$i];
                 } else {
-                    $maxAvailW = $imSettings['blog']['widths'][$i];
-				}
+                    $maxAvailW = $breakPoints[$i]["end"];
+                    if ( $breakPoints[$i]["end"] == 0 ) {
+                        $maxAvailW = $breakPoints[$i]["start"];
+                        if ( $maxAvailW == "max" ) {
+                            $maxAvailW = $breakPoints[$i]["width"];
+                        }
+                    } else {
+                        $maxAvailW = $imSettings['blog']['widths'][$i];
+                    }
+                }
 
 				$cpr = $cardStyle["cardsPerRow"];
 				$BPEnd = $breakPoints[$i]["end"];
@@ -1112,6 +1111,7 @@ class imBlog
                 }
 				$w = max( floor( min( $BPEnd , $maxAvailW ) / $cpr ) , $minCardW );
 				$cpr = max( floor( min( $BPEnd , $maxAvailW ) / $w ) , 1 );
+                $maxAvailW -= ( $cpr - 1 ) * $card["margin"];
 				$w = max( floor( min( $BPEnd , $maxAvailW ) / $cpr ) , $minCardW );
 
 				$strPieceBP = " (max-width: START) END,";
@@ -1213,7 +1213,7 @@ class imBlog
 
 
 
-	function customCardMisc( $rootSelector, $cardStyle ){
+	function customCardMisc( $rootSelector, $cardStyle, $widths = null ) {
 
 		$misc = array();
 
@@ -1223,7 +1223,7 @@ class imBlog
 
 		if ( isset( $cardStyle ) ) {
 
-			$BPValues = $this->customCardBreakpointString( $cardStyle );
+			$BPValues = $this->customCardBreakpointString( $cardStyle, $widths );
 			$misc["cardBreakpoint"] = $BPValues["breakpointString"];            
 			$misc["cardContentLayout"] = $this->customCardContentLayout( $cardStyle["card"] );
 			$misc["cardLayoutCardArrangement"] = $this->customCardLayoutArrangement( $cardStyle );
@@ -1346,11 +1346,11 @@ class imBlog
 
 
 
-	function getCalculatedData( $bp ) {
+	function getCalculatedData( $bp, $strings, $currentPath = "../" ) {
 
 		$calculated = array();
 
-		$calculated["currentPath"] = "../";
+		$calculated["currentPath"] = $currentPath;
 		$calculated["id"] = $bp["id"];
 		$calculated["isHighlighted"] = false;
         if ( isset($bp["isHighlighted"]) && $bp["isHighlighted"] != null ) {
@@ -1369,7 +1369,7 @@ class imBlog
 
 		$calculated["title"] = $bp["title"];
 		$calculated["summary"] = $bp["summary"];
-		$calculated["relativeUrl"] = $bp["rel_url"];
+		$calculated["relativeUrl"] = ($currentPath == "" ? "blog/" : "") . $bp["rel_url"];
 
 		// Calculated values for the contents
 
@@ -1378,15 +1378,16 @@ class imBlog
 		$calculated["author"] = $bp["author"];
 		$calculated["escapedAuthor"] = str_replace(" ", "_", $bp["author"]);
 		$calculated["timestamp"] = $bp["timestamp"];
-        $calculated["readTime"] = $bp["readTime"];
 
+        $calculated["readTime"] = str_replace("[MM]",$bp["readTimeMinutes"], $strings["blog_read_time"]);
+        
 		return $calculated;
 
 	}
 
 
 
-    function getCalculatedDataMulti( $card, $bps, $strings, $misc ){
+    function getCalculatedDataMulti( $card, $bps, $strings, $misc, $currentPath = "../" ) {
 
 		$calculated = array();
 
@@ -1396,7 +1397,7 @@ class imBlog
 
 			$bp = $bps[$bpsKeys[$i]];
 
-			array_push( $calculated , $this->getCalculatedData( $bp ) );
+			array_push( $calculated , $this->getCalculatedData( $bp, $strings, $currentPath ) );
 
 		}
 
@@ -1888,6 +1889,211 @@ END;
         echo "\t\t}";
         echo "\t});\n";
         echo "</script>\n";
+    }
+
+    /**
+     * Show a list of posts for an ObjectBlogPostList
+     *
+     * @param array     $postIds          Array of posts ids
+     * @param array     $l10nStrings      Array of localized strings for the card template
+     * @param array     $cardStyle        Array of style properties for the card template
+     * @param string    $objectId         The object ID for the blog post list
+     * @param array     $outerWidths      Array of outer widths of the object at different breakpoints
+     * @param array     $innerWidths      Array of inner widths of the object at different breakpoints
+     * @param array     $blogPostsPerRow  Array of number of blog posts per row at different breakpoints
+     * @param boolean   $cardBPColumns    List of "(max-width: Npx) cards_per_page" rules for the card layout
+     * @param boolean   $randomOrder      Whether to show the posts in random order
+     *
+     * @return void
+     */
+    function showPostsBlogObj($postIds, $l10nStrings, $cardStyle, $objectId, $outerWidths, $innerWidths, $blogPostsPerRow, $cardBPColumns, $randomOrder)
+    {
+        global $imSettings;
+		$card = $cardStyle["card"];
+		$misc = $this->customCardMisc("#" . $objectId, $cardStyle, $innerWidths);
+		$miscGlobal = $this->getCalculatedGlobalData($card, $misc);
+
+		$blogPostsData = array();
+        $postIdsCount = count($postIds);
+        $utcTime = time();
+		for ($i = 0; $i < $postIdsCount; $i++) {
+			$blogPostItem = $imSettings['blog']['posts'][$postIds[$i]];
+            if ($blogPostItem["utc_time"] <= $utcTime) {
+                array_push($blogPostsData, $blogPostItem);
+            }
+		}
+
+		$postsCalculated = $this->getCalculatedDataMulti(
+			$card,
+			$blogPostsData,
+			$l10nStrings,
+			$misc,
+            ""
+		);
+
+		$templateElaborationData = array(
+			"l10n" => $l10nStrings,
+			"card" => $card,
+			"misc" => $miscGlobal,
+			"bps" => $postsCalculated
+		);
+
+		$customCardTemplatesDir = "./res/cardtemplates/blog/";
+
+		$resultHtml = $this->blogAllInOne( 
+			$templateElaborationData,
+			$customCardTemplatesDir
+		);
+
+        $paginationNeeded = $cardStyle['paginationEnabled'] && $cardStyle['layout'] != 'slideshow' && count($blogPostsData) > $blogPostsPerRow[count($blogPostsPerRow) - 1] * $cardStyle['rowsPerPage'];
+
+        echo "<div id=\"" . $objectId . "\"";
+        if ($paginationNeeded) {
+            echo " data-start=\"0\" data-page-size=\"" . $cardBPColumns . "\" data-count=\"" . count($blogPostsData) . "\"";
+        }
+        echo "><div>" . $resultHtml . "</div>";
+
+        // render a fake paginator to avoid layout shifting
+        if ($paginationNeeded) {
+            echo "<div class=\"imObjPagination pagination-container\"><a class=\"page current\" style=\"visibility: hidden\">1</a></div>";
+        }
+        echo "</div>";
+
+        if ($randomOrder || $paginationNeeded || $cardStyle['layout'] == 'slideshow') {
+            echo "<script>x5engine.boot.push(() => {";
+
+            if ($randomOrder) {
+                echo "x5engine.utils.randomSortCards('" . $objectId . "');";
+                echo "document.getElementById('" . $objectId . "').style.opacity = 1;";
+            }
+
+            if ($cardStyle['layout'] == 'slideshow') {
+                echo "function initSwiper_" . $objectId . "() {";
+
+                echo "  let cardStyle = " .
+                "{" .
+                    "cardsPerRow: " . $cardStyle['cardsPerRow'] . "," .
+                    "card: {" .
+                        "type: '" . $card['type'] . "'," .
+                        "margin: " . $card['margin'] . "," .
+                        "border: {" .
+                            "widths: {" .
+                                "left: " . $card['border']['widths']['left'] . "," .
+                                "right: " . $card['border']['widths']['right'] .
+                            "}" .
+                        "}," .
+                        "image:{" .
+                            "percentSize: " . (100 - $cardStyle['contentWidthPerc']) .
+                        "}" .
+                    "}" .
+                "};";
+
+                $firstBP = true;
+                echo "  let swiperBP = { ";
+                for ($i = 0; $i < count($outerWidths); $i++) {
+                    if ($outerWidths[$i] > 0) {
+                        if ($firstBP)
+                            $firstBP = false;
+                        else
+                            echo ", ";
+                        echo $outerWidths[$i] . ": { slidesPerView: " . min($blogPostsPerRow[$i], count($blogPostsData)) . "}";
+                    }
+                }
+                echo "};";
+
+                // swiper set its own gap between cards; margin-left value set in card template is useful only before swiper initialization, to avoid flickering
+                echo "$('#" . $objectId . " .im-cc-blogpost-cardlayout .im-cc-BlogPostCard').css('margin-left', 0);";
+
+                echo "  const swiper = new Swiper('#" . $objectId . " .swiper', x5engine.utils.getSwiperConfig({" .
+                "    a11y: { prevSlideMessage: '" . l10n("blog_post_prev", "Previous blog post") . "', nextSlideMessage:" . " '" . l10n("blog_post_next", "Next blog post") . "' }," .
+                "    direction: 'horizontal'," .
+                "    loop: false," .
+                "    slidesPerView: 1," .
+                "    breakpoints: swiperBP," .
+                "    spaceBetween: " . $card['margin'] . "," .
+                "    pagination: {" .
+                "      el: '#" . $objectId . " .swiper-pagination'," .
+                "    }," .
+                "    navigation: {" .
+                "      nextEl: '#" . $objectId . " .swiper-button-next'," .
+                "      prevEl: '#" . $objectId . " .swiper-button-prev'," .
+                "    }," .
+                "    scrollbar: {" .
+                "      el: '#" . $objectId . " .swiper-scrollbar'," .
+                "    }" .
+                "  }, false));" .
+                "}" .
+                "initSwiper_" . $objectId . "();";
+            }
+
+            if ($paginationNeeded) {
+                echo "x5engine.utils.paginate('" . $objectId . "');";
+            } else if ($randomOrder) {
+                echo "$('#" . $objectId . " x5engine-card').css('display', 'grid');";
+            }
+
+            echo "}, false, 6);</script>";
+        }
+
+        if ($randomOrder && $cardStyle['layout'] == 'fixedheight') {
+            echo "<style>";
+            $breakpoints = $imSettings['breakpoints'];
+            for ($i = 0; $i < count($breakpoints); $i++) {
+                $bp = $breakpoints[$i];
+                $height = min(ceil(count($blogPostsData) / $blogPostsPerRow[$i]), $cardStyle['paginationEnabled'] ? $cardStyle['rowsPerPage'] : PHP_INT_MAX) * ($card['height'] + $card['margin']) - $card['margin'];
+                echo "@media (" . ($bp["end"] > 0 ? "(min-width: " . $bp["end"] . "px)" : "") . ($bp["end"] > 0 && $bp["start"] != "max" ? " and " : "") . ($bp["start"] != "max" ? "(max-width: " . $bp["start"] . "px)" : "") . ") {";
+                echo "#" . $objectId . " x5engine-cardlayout { height: " . $height . "px; }";
+                echo "}";
+            }
+            echo "</style>";
+        }
+
+        if (!$randomOrder && $cardStyle['layout'] != 'slideshow') {
+            echo "<style>";
+            $breakpoints = $imSettings['breakpoints'];
+            for ($i = 0; $i < count($breakpoints); $i++) {
+                $bp = $breakpoints[$i];
+                echo "@media (" . ($bp["end"] > 0 ? "(min-width: " . $bp["end"] . "px)" : "") . ($bp["end"] > 0 && $bp["start"] != "max" ? " and " : "") . ($bp["start"] != "max" ? "(max-width: " . $bp["start"] . "px)" : "") . ") {";
+                if ($cardStyle['paginationEnabled'] && count($blogPostsData) > $blogPostsPerRow[$i] * $cardStyle['rowsPerPage']) {
+                    // in case of pagination, at first load only the cards of first page are shown
+                    echo "#" . $objectId . " x5engine-card:nth-child(n+" . ($blogPostsPerRow[$i] * $cardStyle['rowsPerPage'] + 1) . ") { display: none; }";
+                } else {
+                    echo "#" . $objectId . " .imObjPagination { display: none; }";
+                }
+                echo "}";
+            }
+            echo "</style>";
+        }
+    }
+
+    /**
+     * Add rich data types for blog posts
+     * Only the posts with utc_time less or equal to current time are included, to avoid adding rich data for not yet published posts
+     * The function is called in the head of the page
+     * 
+     * @param array $posts      Array of rich data types for all posts, indexed by post id; the function filters the posts to include only those published and then outputs the JSON-LD script with the list of blog posts
+     */
+    function addRichDataTypesBlogObj($posts) {
+        global $imSettings;
+		$richDataTypesData = array();
+        $utcTime = time();
+        foreach ($posts as $id => $richDataTypes) {
+            $blogPostItem = $imSettings['blog']['posts'][$id];
+            if ($blogPostItem["utc_time"] <= $utcTime) {
+                array_push($richDataTypesData, $richDataTypes);
+            }
+        }
+
+        if (count($richDataTypesData) > 0) {
+            echo '<script type="application/ld+json">{ "@context": "https:\/\/schema.org", "@type": "ItemList", "numberOfItems": ' . count($richDataTypesData) . ', "itemListElement": [';
+            for ($i = 0; $i < count($richDataTypesData); $i++) {
+                echo '{ "@type": "ListItem", "position": ' . ($i + 1) . ', "item": ' . $richDataTypesData[$i] . ' }';
+                if ($i < count($richDataTypesData) - 1) {
+                    echo ',';
+                }
+            }
+            echo ']}</script>';
+        }
     }
 
     /**
@@ -2544,6 +2750,86 @@ class ReCaptcha {
         curl_close($ch);
 
         return $result;
+    }
+}
+
+
+/**
+ * ReCaptcha Enterprise handling class
+ * @access public
+ */
+class ReCaptchaEnterprise {
+
+    private $projectId;
+    private $siteKey;
+    private $apiKey;
+
+    /**
+     * Build a new ReCaptcha Enterprise class
+     * @param {String} $projectId
+     * @param {String} $siteKey
+     * @param {String} $apiKey
+     */
+    function __construct($projectId, $siteKey, $apiKey) {
+        $this->projectId = $projectId;
+        $this->siteKey = $siteKey;
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * verify Recaptcha
+     * @param string $token The recaptcha token to be checked
+     * @param string $action The action (done by user, i.e. visit-page, login, etc)
+     */
+    function verifyRecaptcha($token, $action) {
+
+        $url =
+            "https://recaptchaenterprise.googleapis.com/v1/" .
+            "projects/" . $this->projectId . "/assessments" .
+            "?key=" . $this->apiKey;
+
+        $data = [
+            'event' => [
+                'token' => $token,
+                'siteKey' => $this->siteKey,
+                'expectedAction' => $action,
+                'userAgent' => $_SERVER['HTTP_USER_AGENT'] ?? '',
+                'userIpAddress' => $_SERVER['REMOTE_ADDR'] ?? ''
+            ]
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        curl_setopt(
+            $ch,
+            CURLOPT_POSTFIELDS,
+            json_encode($data)
+        );
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $result = json_decode($response, true);
+
+        if (
+            !isset($result['tokenProperties']['valid']) ||
+            !$result['tokenProperties']['valid']
+        ) {
+            return false;
+        }
+        if (
+            ($result['tokenProperties']['action'] ?? '')
+            !== $action
+        ) {
+            return false;
+        }
+
+        $score = $result['riskAnalysis']['score'] ?? 0;
+
+        return $score >= 0.5;
+
     }
 }
 
@@ -5349,140 +5635,145 @@ class imSearch {
             foreach ($this->scope as $filename) {
                 $count = 0;
                 $weight = 0;
-                $file_content = @implode("\n", file($filename));
-                // Replace the nonbreaking space with a white space
-                // to avoid that is converted to a 196+160 UTF8 char
-                $file_content = str_replace("&nbsp;", " ", $file_content);
-                if (function_exists("html_entity_decode"))
-                    $file_content = html_entity_decode($file_content, ENT_COMPAT, 'UTF-8');
+				$file = file($filename);
+				if ($file === false) {
+					error_log("File not found: " . $filename, 0);
+				} else {
+                    $file_content = @implode("\n", $file);
+                    // Replace the nonbreaking space with a white space
+                    // to avoid that is converted to a 196+160 UTF8 char
+                    $file_content = str_replace("&nbsp;", " ", $file_content);
+                    if (function_exists("html_entity_decode"))
+                        $file_content = html_entity_decode($file_content, ENT_COMPAT, 'UTF-8');
 
-                // Remove contents wrapped between "<!-- UNSEARCHABLE --><!-- UNSEARCHABLE END -->" comments
-                while (stristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
-                    $unsearchable_start = stripos($file_content, "<!-- UNSEARCHABLE -->");
-                    $unsearchable_end = stripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + strlen("<!-- UNSEARCHABLE END -->");
-                    $unsearchable = substr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
-                    $file_content = str_replace($unsearchable, "", $file_content);
-                }
+                    // Remove contents wrapped between "<!-- UNSEARCHABLE --><!-- UNSEARCHABLE END -->" comments
+                    while (stristr($file_content, "<!-- UNSEARCHABLE -->") !== false) {
+                        $unsearchable_start = stripos($file_content, "<!-- UNSEARCHABLE -->");
+                        $unsearchable_end = stripos($file_content, "<!-- UNSEARCHABLE END -->", $unsearchable_start) + strlen("<!-- UNSEARCHABLE END -->");
+                        $unsearchable = substr($file_content, $unsearchable_start, $unsearchable_end - $unsearchable_start);
+                        $file_content = str_replace($unsearchable, "", $file_content);
+                    }
 
-                // Remove the breadcrumbs
-                while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
-                    $imbreadcrumb_start = stripos($file_content, "<div id=\"imBreadcrumb\"");
-                    $imbreadcrumb_end = stripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
-                    $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
-                    $file_content = str_replace($imbreadcrumb, "", $file_content);
-                }
+                    // Remove the breadcrumbs
+                    while (stristr($file_content, "<div id=\"imBreadcrumb\"") !== false) {
+                        $imbreadcrumb_start = stripos($file_content, "<div id=\"imBreadcrumb\"");
+                        $imbreadcrumb_end = stripos($file_content, "</div>", $imbreadcrumb_start) + strlen("</div>");
+                        $imbreadcrumb = substr($file_content, $imbreadcrumb_start, $imbreadcrumb_end - $imbreadcrumb_start);
+                        $file_content = str_replace($imbreadcrumb, "", $file_content);
+                    }
 
-                // Remove CSS
-                while (stristr($file_content, "<style") !== false) {
-                    $style_start = stripos($file_content, "<style");
-                    $style_end = stripos($file_content, "</style>", $style_start) + strlen("</style>");
-                    $style = substr($file_content, $style_start, $style_end - $style_start);
-                    $file_content = str_replace($style, "", $file_content);
-                }
+                    // Remove CSS
+                    while (stristr($file_content, "<style") !== false) {
+                        $style_start = stripos($file_content, "<style");
+                        $style_end = stripos($file_content, "</style>", $style_start) + strlen("</style>");
+                        $style = substr($file_content, $style_start, $style_end - $style_start);
+                        $file_content = str_replace($style, "", $file_content);
+                    }
 
-                // Remove JS
-                while (stristr($file_content, "<script") !== false) {
-                    $script_start = stripos($file_content, "<script");
-                    $script_end = stripos($file_content, "</script>", $script_start) + strlen("</script>");
-                    $script = substr($file_content, $script_start, $script_end - $script_start);
-                    $file_content = str_replace($script, "", $file_content);
-                }
+                    // Remove JS
+                    while (stristr($file_content, "<script") !== false) {
+                        $script_start = stripos($file_content, "<script");
+                        $script_end = stripos($file_content, "</script>", $script_start) + strlen("</script>");
+                        $script = substr($file_content, $script_start, $script_end - $script_start);
+                        $file_content = str_replace($script, "", $file_content);
+                    }
 
-                // Remove noscript tag
-                while (stristr($file_content, "<noscript") !== false) {
-                    $noscript_start = stripos($file_content, "<noscript");
-                    $noscript_end = stripos($file_content, "</noscript>", $noscript_start) + strlen("</noscript>");
-                    $noscript = substr($file_content, $noscript_start, $noscript_end - $noscript_start);
-                    $file_content = str_replace($noscript, "", $file_content);
-                }
+                    // Remove noscript tag
+                    while (stristr($file_content, "<noscript") !== false) {
+                        $noscript_start = stripos($file_content, "<noscript");
+                        $noscript_end = stripos($file_content, "</noscript>", $noscript_start) + strlen("</noscript>");
+                        $noscript = substr($file_content, $noscript_start, $noscript_end - $noscript_start);
+                        $file_content = str_replace($noscript, "", $file_content);
+                    }
 
-                // Remove the hidden spans
-                while (stristr($file_content, "<span class=\"imHidden\"") !== false) {
-                    $imhidden_start = stripos($file_content, "<span class=\"imHidden\"");
-                    $imhidden_end = stripos($file_content, "</span>", $imhidden_start) + strlen("</span>");
-                    $imhidden = substr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
-                    $file_content = str_replace($imhidden, "", $file_content);
-                }
+                    // Remove the hidden spans
+                    while (stristr($file_content, "<span class=\"imHidden\"") !== false) {
+                        $imhidden_start = stripos($file_content, "<span class=\"imHidden\"");
+                        $imhidden_end = stripos($file_content, "</span>", $imhidden_start) + strlen("</span>");
+                        $imhidden = substr($file_content, $imhidden_start, $imhidden_end - $imhidden_start);
+                        $file_content = str_replace($imhidden, "", $file_content);
+                    }
 
-                // Remove PHP
-                while (stristr($file_content, "<?php") !== false) {
-                    $php_start = stripos($file_content, "<?php");
-                    $php_end = stripos($file_content, "?>", $php_start) !== false ? stripos($file_content, "?>", $php_start) + 2 : strlen($file_content);
-                    $php = substr($file_content, $php_start, $php_end - $php_start);
-                    $file_content = str_replace($php, "", $file_content);
-                }
+                    // Remove PHP
+                    while (stristr($file_content, "<?php") !== false) {
+                        $php_start = stripos($file_content, "<?php");
+                        $php_end = stripos($file_content, "?>", $php_start) !== false ? stripos($file_content, "?>", $php_start) + 2 : strlen($file_content);
+                        $php = substr($file_content, $php_start, $php_end - $php_start);
+                        $file_content = str_replace($php, "", $file_content);
+                    }
 
-                // Get the title of the page
-                $file_titles = array();
-                if (preg_match_all('/\<(?:title|header[^\>]*\>[^\<]*\<(h2|h1|div)[^\>]*)\>([^\<]*)\<\/(?:title|\1)\>/', $file_content, $matches, PREG_PATTERN_ORDER)) {
-                    $file_titles = $matches[2];
-                }
+                    // Get the title of the page
+                    $file_titles = array();
+                    if (preg_match_all('/\<(?:title|header[^\>]*\>[^\<]*\<(h2|h1|div)[^\>]*)\>([^\<]*)\<\/(?:title|\1)\>/', $file_content, $matches, PREG_PATTERN_ORDER)) {
+                        $file_titles = $matches[2];
+                    }
 
-                foreach ($file_titles as $file_title) {
-                    foreach ($queries as $query) {
-                        $title = imstrtolower($file_title);
-                        while (($title = imstristr($title, $query)) !== false) {
-                            $weight += 3;
-                            $count++;
-                            $title = imsubstr($title, imstrlen($query));
+                    foreach ($file_titles as $file_title) {
+                        foreach ($queries as $query) {
+                            $title = imstrtolower($file_title);
+                            while (($title = imstristr($title, $query)) !== false) {
+                                $weight += 3;
+                                $count++;
+                                $title = imsubstr($title, imstrlen($query));
+                            }
                         }
                     }
-                }
 
-                // Get the keywords
-                preg_match('/\<meta name\=\"keywords\" content\=\"([^\"]*)\" \/>/', $file_content, $matches);
-                if (count($matches) > 1) {
-                    $keywords = $matches[1];
-                    foreach ($queries as $query) {
-                        $tkeywords = imstrtolower($keywords);
-                        while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
-                            $weight += 4;
-                            $count++;
-                            $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                    // Get the keywords
+                    preg_match('/\<meta name\=\"keywords\" content\=\"([^\"]*)\" \/>/', $file_content, $matches);
+                    if (count($matches) > 1) {
+                        $keywords = $matches[1];
+                        foreach ($queries as $query) {
+                            $tkeywords = imstrtolower($keywords);
+                            while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
+                                $weight += 4;
+                                $count++;
+                                $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                            }
                         }
                     }
-                }
 
-                // Get the description
-                preg_match('/\<meta name\=\"description\" content\=\"([^\"]*)\" \/>/', $file_content, $matches);
-                if (count($matches) > 1) {
-                    $keywords = $matches[1];
-                    foreach ($queries as $query) {
-                        $tkeywords = imstrtolower($keywords);
-                        while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
-                            $weight += 3;
-                            $count++;
-                            $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                    // Get the description
+                    preg_match('/\<meta name\=\"description\" content\=\"([^\"]*)\" \/>/', $file_content, $matches);
+                    if (count($matches) > 1) {
+                        $keywords = $matches[1];
+                        foreach ($queries as $query) {
+                            $tkeywords = imstrtolower($keywords);
+                            while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
+                                $weight += 3;
+                                $count++;
+                                $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                            }
                         }
                     }
-                }
 
-                $page_pos = strpos($file_content, "<main id=\"imContent\">") + imstrlen("<main id=\"imContent\">");
-                if ($page_pos == false)
-                    $page_pos = strpos($file_content, "<body>") + strlen("<body>");
-                $page_end = strpos($file_content, "</main>") + strlen("</main>");
-                if ($page_end == false)
-                    $page_end = strpos($file_content, "</body>") + strlen("</body>");
-                $file_content = strip_tags(substr($file_content, $page_pos, $page_end-$page_pos),"<ol><ul><li>");
-                $t_file_content = imstrtolower($file_content);
+                    $page_pos = strpos($file_content, "<main id=\"imContent\">") + imstrlen("<main id=\"imContent\">");
+                    if ($page_pos == false)
+                        $page_pos = strpos($file_content, "<body>") + strlen("<body>");
+                    $page_end = strpos($file_content, "</main>") + strlen("</main>");
+                    if ($page_end == false)
+                        $page_end = strpos($file_content, "</body>") + strlen("</body>");
+                    $file_content = strip_tags(substr($file_content, $page_pos, $page_end-$page_pos),"<ol><ul><li>");
+                    $t_file_content = imstrtolower($file_content);
 
-                foreach ($queries as $query) {
-                    $file = $t_file_content;
-                    while (($file = imstristr($file, $query)) !== false) {
-                        $count++;
-                        $weight++;
-                        $file = imsubstr($file, imstrlen($query));
+                    foreach ($queries as $query) {
+                        $file = $t_file_content;
+                        while (($file = imstristr($file, $query)) !== false) {
+                            $count++;
+                            $weight++;
+                            $file = imsubstr($file, imstrlen($query));
+                        }
                     }
-                }
 
-                if ($count > 0) {
-                    $found_count[$filename] = $count;
-                    $found_weight[$filename] = $weight;
-                    $found_content[$filename] = $file_content;
-                    if (count($file_titles) == 0)
-                        $found_title[$filename] = $filename;
-                    else
-                        $found_title[$filename] = $file_titles[0];
+                    if ($count > 0) {
+                        $found_count[$filename] = $count;
+                        $found_weight[$filename] = $weight;
+                        $found_content[$filename] = $file_content;
+                        if (count($file_titles) == 0)
+                            $found_title[$filename] = $filename;
+                        else
+                            $found_title[$filename] = $file_titles[0];
+                    }
                 }
             }
         }

@@ -8,7 +8,9 @@
 	s.dateFormat = 'dd MMM yyyy';
 	s.dateFormatExt = 'dddd dd MMM yyyy';
 	s.rtl = false;
-	s.version = '2026-1-9-0';
+	s.responsiveTextMargin = false;
+	s.responsiveMinTextSize = 11;
+	s.version = '2026-2-2-0';
 	b.push(function () {
 		x.setupDateTime();
 		x.imAccess.showLogout();
