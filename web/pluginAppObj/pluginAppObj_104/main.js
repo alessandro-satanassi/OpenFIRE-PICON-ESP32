@@ -124,7 +124,7 @@ function youtubegallery_pluginAppObj_104() {
             lengthList = 1;
             var showValue = "always";
 
-            var links = "https://youtu.be/dccmurhZ-y4||";
+            var links = "https://www.youtube.com/watch?v=dccmurhZ-y4||";
             var arrLinks = links.substring(0,links.length - 2).split("||");
 
             html = "<div class='swiper-container main'>";
