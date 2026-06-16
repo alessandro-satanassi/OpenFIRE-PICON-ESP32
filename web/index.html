@@ -36,7 +36,7 @@
 		<link rel="stylesheet" href="pluginAppObj/pluginAppObj_104/custom.css" media="screen, print" />
 		
 		<link rel="stylesheet" href="pluginAppObj/imFooter_pluginAppObj_03/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/index.css?2026-2-2-0-639172410493922713" media="screen,print" />
+		<link rel="stylesheet" href="pcss/index.css?2026-2-2-0-639172425684196637" media="screen,print" />
 		<script src="res/jquery.js?2026-2-2-0"></script>
 		<script src="res/x5engine.js?2026-2-2-0" data-files-version="2026-2-2-0"></script>
 		<script src="appsresources/swiper4.min.js"></script>
@@ -49,7 +49,7 @@
 			x5engine.boot.push(function () { x5engine.parallax.start(); });
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?2026-2-2-0-639172410493061120" type="image/png" />
+		<link rel="icon" href="favicon.png?2026-2-2-0-639172425682811691" type="image/png" />
 		<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 	</head>
 	<body>
@@ -243,6 +243,47 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
+						</div><div id="imCell_105" class=""> <div id="imCellStyleGraphics_105" ></div><div id="imCellStyleBorders_105"></div><div id="imObjectVideo_105"><div id="imObjectVideo_105_container"></div></div>
+						<script>
+							function loadimObjectVideo_105() {
+								$('#imObjectVideo_105').width('100%');
+								$('#imObjectVideo_105_container').empty();
+								var settings = { 
+									'target': '#imObjectVideo_105_container',
+									'type': 'youtube',
+									'url': 'https://www.youtube.com/watch?v=dccmurhZ-y4',
+									'width': 640,
+									'height': 360,
+									'showVideoControls': true,
+									'loop': false,
+									'muted': false,
+									'autoplay': false
+								};
+								var w = Math.min(640, $('#imObjectVideo_105').width());
+								settings.width = w;
+								var h = w > 640 ? 360 : (settings.width / 640 * 360);
+								settings.height = h;
+								x5engine.mediaPlayer(settings);
+							}
+							x5engine.boot.push(loadimObjectVideo_105);
+							var imObjectVideo_105_resizeTo = null,
+							imObjectVideo_105_width = 0;
+							var elementResize = function() {
+							x5engine.utils.onElementResize(document.getElementById('imObjectVideo_105'), function (rect, target) {
+							if (imObjectVideo_105_width == rect.width || (imObjectVideo_105_width >= 640 && rect.width > 640)) {
+								return;
+							}
+							imObjectVideo_105_width = rect.width;
+							if (!!imObjectVideo_105_resizeTo) {
+								clearTimeout(imObjectVideo_105_resizeTo);
+							}
+							imObjectVideo_105_resizeTo = setTimeout(function() {
+								loadimObjectVideo_105();
+							}, 50);
+								});
+							}
+							x5engine.boot.push(elementResize); 
+						</script>
 						</div><div id="imCell_104" class=""> <div id="imCellStyleGraphics_104" ></div><div id="imCellStyleBorders_104"></div><!-- YouTube Gallery v.17 --><div id="pluginAppObj_104">
 						        <div id="youtubegallery_pluginAppObj_104" class="none">
 						        </div>
@@ -272,8 +313,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 						</div><div id="imPageRow_8" class="imPageRow">
 						<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;"><div id="imPageRowGraphics_8" class="imContentDataContainer" ></div></div>
 						</div>
-						<div id="imCell_63" class=""> <div id="imCellStyleGraphics_63" ></div><div id="imCellStyleBorders_63"></div><div id="imObjectImage_63"><div id="imObjectImage_63_container"><img src="images/large-6640235.png"  width="450" height="607" />
-						</div></div></div><div id="imCell_62" class=""> <div id="imCellStyleGraphics_62" ></div><div id="imCellStyleBorders_62"></div><div id="imTextObject_62">
+						<div id="imCell_62" class=""> <div id="imCellStyleGraphics_62" ></div><div id="imCellStyleBorders_62"></div><div id="imTextObject_62">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_62_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-line-height="1.5" class="lh1-5"><b class="fs12lh1-5 ff1">PER COSTRUIRE LA LIGHTGUN NON SERVONO PARTICOLARI CAPACITA' O CONOSCENZE.</b></div><div data-line-height="1.5" class="lh1-5"><span style="font-weight: 700;" class="fs14lh1-5 ff1">TI SERVIRA' LA SEGUENTE ATTREZZARA O EQUIVALENTE:</span></div><div data-line-height="1.5" class="lh1-5"><br></div><div data-line-height="1.5" class="lh1-5"><ul><li><span class="fs12lh1-5">STAMPANTE 3D (in alternativa si possono far stampare le 'parti' a servizi esterni)</span></li><li><span class="fs12lh1-5">saldatore per stagnare i collegamenti/fili ed anche per inserire gli inserti;</span></li><li><span class="fs12lh1-5">consigliate anche le punte per inserti da utilizzare col saldatore per inserire più facilmente gli 'inserti' &nbsp;</span></li><li><span class="fs12lh1-5">attrezzi vari, quali: spellafili, tronchesine, forbici, cacciaviti, chiavi per avvitare viti</span></li><li><span class="fs12lh1-5">un seghetto per tagliare plastica del supporto della lente;</span></li><li><span class="fs12lh1-5">un cutter per ripulire eventuali bavette della stampa 3D;</span></li><li><span class="fs12lh1-5">pazienza e tanta passione</span></li></ul></div>
@@ -281,7 +321,8 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imPageRow_9" class="imPageRow">
+						</div><div id="imCell_63" class=""> <div id="imCellStyleGraphics_63" ></div><div id="imCellStyleBorders_63"></div><div id="imObjectImage_63"><div id="imObjectImage_63_container"><img src="images/large-6640235.png"  width="450" height="607" />
+						</div></div></div><div id="imPageRow_9" class="imPageRow">
 						
 						</div>
 						<div id="imCell_14" class=""> <div id="imCellStyleGraphics_14" ></div><div id="imCellStyleBorders_14"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_14" style="direction: ltr;">
@@ -376,8 +417,8 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 						    adjustHeight();
 						    window.addEventListener('resize', adjustHeight);
 						  });
-						</script></div></div><div id="imCell_102" class=""> <div id="imCellStyleGraphics_102" ></div><div id="imCellStyleBorders_102"></div><div id="imObjectImage_102"><div id="imObjectImage_102_container"><img src="images/pedale---intero.png"  width="440" height="318" />
-						</div></div></div><div id="imCell_101" class=""> <div id="imCellStyleGraphics_101" ></div><div id="imCellStyleBorders_101"></div><div id="imObjectImage_101"><div id="imObjectImage_101_container"><img src="images/case_ir_led_tx_ver_04-Corpo.png"  width="440" height="347" />
+						</script></div></div><div id="imCell_101" class=""> <div id="imCellStyleGraphics_101" ></div><div id="imCellStyleBorders_101"></div><div id="imObjectImage_101"><div id="imObjectImage_101_container"><img src="images/case_ir_led_tx_ver_04-Corpo.png"  width="440" height="347" />
+						</div></div></div><div id="imCell_102" class=""> <div id="imCellStyleGraphics_102" ></div><div id="imCellStyleBorders_102"></div><div id="imObjectImage_102"><div id="imObjectImage_102_container"><img src="images/pedale---intero.png"  width="440" height="318" />
 						</div></div></div><div id="imPageRow_11" class="imPageRow">
 						
 						</div>
@@ -510,14 +551,7 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 						</div><div id="imPageRow_19" class="imPageRow">
 						<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;"><div id="imPageRowGraphics_19" class="imContentDataContainer" ></div></div>
 						</div>
-						<div id="imCell_64" class=""> <div id="imCellStyleGraphics_64" ></div><div id="imCellStyleBorders_64"></div><div id="imObjectImage_64"><div id="imObjectImage_64_container"><a href="https://discord.gg/G8XMdCR5pf" target="_blank"><img src="images/Discord-Logo-Blurple.png"  width="440" height="67" />
-						</a>
-						<script>
-							x5engine.boot.push(function () {
-								 x5engine.imagefx.glow('#imObjectImage_64_container img', 5, 'rgba(255, 0, 0, 1)');
-							});
-						</script>
-						</div></div><div id="imCellStyleDescription_64"><div>OpenFIRE</div></div></div><div id="imCell_65" class=""> <div id="imCellStyleGraphics_65" ></div><div id="imCellStyleBorders_65"></div><div id="imTextObject_65">
+						<div id="imCell_65" class=""> <div id="imCellStyleGraphics_65" ></div><div id="imCellStyleBorders_65"></div><div id="imTextObject_65">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_65_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-text-align="center" class="imTACenter"><span class="cf1"><a href="https://discord.gg/G8XMdCR5pf" target="_blank" class="imCssLink">... entra nel server discord di OpenFIRE</a></span><span class="cf1"> </span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i>(nel canale 'software-ports' si può discutere del porting di OpenFIRE per Esp32)</i></span></div>
@@ -525,16 +559,16 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_72" class=""> <div id="imCellStyleGraphics_72" ></div><div id="imCellStyleBorders_72"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_72" style="direction: ltr;">
-						            <div style="width: 100%; height: 1px"></div>
-						        </div></div><div id="imCell_66" class=""> <div id="imCellStyleGraphics_66" ></div><div id="imCellStyleBorders_66"></div><div id="imObjectImage_66"><div id="imObjectImage_66_container"><a href="https://discord.gg/8fm4YUxEsa" target="_blank"><img src="images/Discord-Logo-Light-Blurple.png"  width="440" height="67" />
+						</div><div id="imCell_64" class=""> <div id="imCellStyleGraphics_64" ></div><div id="imCellStyleBorders_64"></div><div id="imObjectImage_64"><div id="imObjectImage_64_container"><a href="https://discord.gg/G8XMdCR5pf" target="_blank"><img src="images/Discord-Logo-Blurple.png"  width="440" height="67" />
 						</a>
 						<script>
 							x5engine.boot.push(function () {
-								 x5engine.imagefx.glow('#imObjectImage_66_container img', 5, 'rgba(255, 0, 0, 1)');
+								 x5engine.imagefx.glow('#imObjectImage_64_container img', 5, 'rgba(255, 0, 0, 1)');
 							});
 						</script>
-						</div></div><div id="imCellStyleDescription_66"><div>DIY Lightgun</div></div></div><div id="imCell_69" class=""> <div id="imCellStyleGraphics_69" ></div><div id="imCellStyleBorders_69"></div><div id="imTextObject_69">
+						</div></div><div id="imCellStyleDescription_64"><div>OpenFIRE</div></div></div><div id="imCell_72" class=""> <div id="imCellStyleGraphics_72" ></div><div id="imCellStyleBorders_72"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_72" style="direction: ltr;">
+						            <div style="width: 100%; height: 1px"></div>
+						        </div></div><div id="imCell_69" class=""> <div id="imCellStyleGraphics_69" ></div><div id="imCellStyleBorders_69"></div><div id="imTextObject_69">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_69_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-text-align="center" class="imTACenter"><span class="cf1"><a href="https://discord.gg/8fm4YUxEsa" target="_blank" class="imCssLink">... entra nel server discord di DIY Lightgun</a></span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i>(nel canale si discute di varie lightgun tra cui OpenFIRE)</i></span></div>
@@ -542,9 +576,23 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_73" class=""> <div id="imCellStyleGraphics_73" ></div><div id="imCellStyleBorders_73"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_73" style="direction: ltr;">
+						</div><div id="imCell_66" class=""> <div id="imCellStyleGraphics_66" ></div><div id="imCellStyleBorders_66"></div><div id="imObjectImage_66"><div id="imObjectImage_66_container"><a href="https://discord.gg/8fm4YUxEsa" target="_blank"><img src="images/Discord-Logo-Light-Blurple.png"  width="440" height="67" />
+						</a>
+						<script>
+							x5engine.boot.push(function () {
+								 x5engine.imagefx.glow('#imObjectImage_66_container img', 5, 'rgba(255, 0, 0, 1)');
+							});
+						</script>
+						</div></div><div id="imCellStyleDescription_66"><div>DIY Lightgun</div></div></div><div id="imCell_73" class=""> <div id="imCellStyleGraphics_73" ></div><div id="imCellStyleBorders_73"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_73" style="direction: ltr;">
 						            <div style="width: 100%; height: 1px"></div>
-						        </div></div><div id="imCell_70" class=""> <div id="imCellStyleGraphics_70" ></div><div id="imCellStyleBorders_70"></div><div id="imTextObject_70">
+						        </div></div><div id="imCell_67" class=""> <div id="imCellStyleGraphics_67" ></div><div id="imCellStyleBorders_67"></div><div id="imObjectImage_67"><div id="imObjectImage_67_container"><a href="https://openfirelightgun.org/" target="_blank"><img src="images/OpenFIRE-Light-Gun-Firmware-and-Gui-Transparent-Background-300x218.png"  width="300" height="218" />
+						</a>
+						<script>
+							x5engine.boot.push(function () {
+								 x5engine.imagefx.glow('#imObjectImage_67_container img', 5, 'rgba(255, 0, 0, 1)');
+							});
+						</script>
+						</div></div></div><div id="imCell_70" class=""> <div id="imCellStyleGraphics_70" ></div><div id="imCellStyleBorders_70"></div><div id="imTextObject_70">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_70_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-text-align="center" class="imTACenter"><span class="cf1"><a href="https://openfirelightgun.org/" target="_blank" class="imCssLink">visita il sito del progetto originale di OpenFIRE</a></span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i>(sito ufficiale di OpenFIRE)</i></span></div>
@@ -552,23 +600,9 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_67" class=""> <div id="imCellStyleGraphics_67" ></div><div id="imCellStyleBorders_67"></div><div id="imObjectImage_67"><div id="imObjectImage_67_container"><a href="https://openfirelightgun.org/" target="_blank"><img src="images/OpenFIRE-Light-Gun-Firmware-and-Gui-Transparent-Background-300x218.png"  width="300" height="218" />
-						</a>
-						<script>
-							x5engine.boot.push(function () {
-								 x5engine.imagefx.glow('#imObjectImage_67_container img', 5, 'rgba(255, 0, 0, 1)');
-							});
-						</script>
-						</div></div></div><div id="imCell_74" class=""> <div id="imCellStyleGraphics_74" ></div><div id="imCellStyleBorders_74"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_74" style="direction: ltr;">
+						</div><div id="imCell_74" class=""> <div id="imCellStyleGraphics_74" ></div><div id="imCellStyleBorders_74"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_74" style="direction: ltr;">
 						            <div style="width: 100%; height: 1px"></div>
-						        </div></div><div id="imCell_68" class=""> <div id="imCellStyleGraphics_68" ></div><div id="imCellStyleBorders_68"></div><div id="imObjectImage_68"><div id="imObjectImage_68_container"><a href="https://diylightgun.com/lightguns/?pt=lightgun" target="_blank"><img src="images/pxl_20240619_200546409-300x225.png"  width="300" height="225" />
-						</a>
-						<script>
-							x5engine.boot.push(function () {
-								 x5engine.imagefx.glow('#imObjectImage_68_container img', 5, 'rgba(255, 0, 0, 1)');
-							});
-						</script>
-						</div></div></div><div id="imCell_71" class=""> <div id="imCellStyleGraphics_71" ></div><div id="imCellStyleBorders_71"></div><div id="imTextObject_71">
+						        </div></div><div id="imCell_71" class=""> <div id="imCellStyleGraphics_71" ></div><div id="imCellStyleBorders_71"></div><div id="imTextObject_71">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_71_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-text-align="center" class="imTACenter"><span class="cf1"><a href="https://diylightgun.com/lightguns/?pt=lightgun" target="_blank" class="imCssLink">visita il sito DIY Lightgun</a></span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i>(sito ufficiale per la costruzione della lightgun PICON-OG ed altro)</i></span></div>
@@ -576,16 +610,16 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_75" class=""> <div id="imCellStyleGraphics_75" ></div><div id="imCellStyleBorders_75"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_75" style="direction: ltr;">
-						            <div style="width: 100%; height: 1px"></div>
-						        </div></div><div id="imCell_76" class=""> <div id="imCellStyleGraphics_76" ></div><div id="imCellStyleBorders_76"></div><div id="imObjectImage_76"><div id="imObjectImage_76_container"><img src="images/large-6980894.png"  width="440" height="440" />
-						
+						</div><div id="imCell_68" class=""> <div id="imCellStyleGraphics_68" ></div><div id="imCellStyleBorders_68"></div><div id="imObjectImage_68"><div id="imObjectImage_68_container"><a href="https://diylightgun.com/lightguns/?pt=lightgun" target="_blank"><img src="images/pxl_20240619_200546409-300x225.png"  width="300" height="225" />
+						</a>
 						<script>
 							x5engine.boot.push(function () {
-								 x5engine.imagefx.glow('#imObjectImage_76_container img', 5, 'rgba(255, 0, 0, 1)');
+								 x5engine.imagefx.glow('#imObjectImage_68_container img', 5, 'rgba(255, 0, 0, 1)');
 							});
 						</script>
-						</div></div></div><div id="imCell_77" class=""> <div id="imCellStyleGraphics_77" ></div><div id="imCellStyleBorders_77"></div><div id="imTextObject_77">
+						</div></div></div><div id="imCell_75" class=""> <div id="imCellStyleGraphics_75" ></div><div id="imCellStyleBorders_75"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_75" style="direction: ltr;">
+						            <div style="width: 100%; height: 1px"></div>
+						        </div></div><div id="imCell_77" class=""> <div id="imCellStyleGraphics_77" ></div><div id="imCellStyleBorders_77"></div><div id="imTextObject_77">
 							<div data-index="0"  class="text-tab-content grid-prop current-tab "  id="imTextObject_77_tab0" style="opacity: 1; " role="tabpanel" tabindex="0">
 								<div class="text-inner">
 									<div data-text-align="center" class="imTACenter"><div data-text-align="center"><span class="fs12lh1-5 cf1"><br></span></div><div data-text-align="center"><span class="fs12lh1-5 cf1"><span class="fs12lh1-5"><a href="https://github.com/alessandro-satanassi/OpenFIRE-Firmware-ESP32" target="_blank" class="imCssLink">Pagina GitHub del progetto OpenFIRE - Firmware - ESP32</a></span></span></div><div data-text-align="center"><i><span class="fs10lh1-5 cf2">(pagina del progetto OpenFIRE - Firmware - Esp32 per lightgun - Dongle e Pedal)</span></i></div></div><div data-text-align="center" class="imTACenter"><div data-text-align="center"><br></div><div data-text-align="center"><span class="fs12lh1-5"><a href="https://github.com/alessandro-satanassi/OpenFIRE-PICON-AS-ESP32" target="_blank" class="imCssLink">Pagina GitHub del progetto OpenFIRE - PICON - AS - ESP32</a></span></div><div data-text-align="center"><div data-text-align="center"><div data-text-align="center"><i><span class="fs10lh1-5 cf2">(pagina del progetto OpenFIRE - PICON - AS - Esp32)</span></i></div><div data-text-align="center"><br></div></div><div data-text-align="center"><span class="fs12lh1-5 cf1"><span class="fs12lh1-5"><a href="https://github.com/TeamOpenFIRE/OpenFIRE-App" target="_blank" class="imCssLink">Pagina GitHub del progetto OpenFIRE - App</a></span></span></div><div data-text-align="center"><i><span class="fs10lh1-5 cf2">(pagina del progetto OpenFIRE - App)</span></i></div></div></div><div data-text-align="center" class="imTACenter"><br></div><div data-text-align="center" class="imTACenter"><span class="cf1"><a href="https://github.com/TeamOpenFIRE/OpenFIRE-Firmware" target="_blank" class="imCssLink">Pagina GitHub del progetto OpenFIRE - Firmware</a></span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i>(pagina del progetto OpenFIRE - Firmware)</i></span></div><div data-text-align="center" class="imTACenter"><span class="fs10lh1-5 cf2"><i><br></i></span></div><div data-text-align="center" class="imTACenter"><div data-text-align="center"><span class="fs12lh1-5"><a href="https://github.com/TeamOpenFIRE/OpenFIRE-Boards" target="_blank" class="imCssLink">Pagina GitHub del progetto OpenFIRE - Boards</a></span><br></div><div data-text-align="center"><div data-text-align="center"><i><span class="fs10lh1-5 cf2">(pagina del progetto OpenFIRE - Boards)</span></i></div><div data-text-align="center"><i><span class="fs10lh1-5 cf2"><br></span></i></div></div></div>
@@ -593,7 +627,14 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_78" class=""> <div id="imCellStyleGraphics_78" ></div><div id="imCellStyleBorders_78"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_78" style="direction: ltr;">
+						</div><div id="imCell_76" class=""> <div id="imCellStyleGraphics_76" ></div><div id="imCellStyleBorders_76"></div><div id="imObjectImage_76"><div id="imObjectImage_76_container"><img src="images/large-6980894.png"  width="440" height="440" />
+						
+						<script>
+							x5engine.boot.push(function () {
+								 x5engine.imagefx.glow('#imObjectImage_76_container img', 5, 'rgba(255, 0, 0, 1)');
+							});
+						</script>
+						</div></div></div><div id="imCell_78" class=""> <div id="imCellStyleGraphics_78" ></div><div id="imCellStyleBorders_78"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_78" style="direction: ltr;">
 						            <div style="width: 100%; height: 1px"></div>
 						        </div></div><div id="imCell_60" class=""> <div id="imCellStyleGraphics_60" ></div><div id="imCellStyleBorders_60"></div><!-- Simple Separator v.2 --><div id="pluginAppObj_60" style="direction: ltr;">
 						            <div style="width: 100%; height: 10px"></div>

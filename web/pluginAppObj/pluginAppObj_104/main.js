@@ -287,7 +287,7 @@ pluginAppObj_104YouTubeGallery.on('slideChange', function () { myMakeAllButCurre
 
             slidesPerView:    1,
             slidesPerColumn:  1,
-            spaceBetween:     5,
+            spaceBetween:     0,
             freeMode:         false,
             speed:            1000,
             roundLengths: true,
