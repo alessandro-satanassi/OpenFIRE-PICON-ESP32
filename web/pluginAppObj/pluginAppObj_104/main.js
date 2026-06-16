@@ -122,7 +122,7 @@ function youtubegallery_pluginAppObj_104() {
             animation = x5engine.settings.imLoadingAnimation;
 
             lengthList = 1;
-            var showValue = "mouse_over";
+            var showValue = "always";
 
             var links = "https://youtu.be/dccmurhZ-y4||";
             var arrLinks = links.substring(0,links.length - 2).split("||");
@@ -147,11 +147,11 @@ function youtubegallery_pluginAppObj_104() {
             }
             html += "</div>"; //Closing swiper wrapper
 
-            if("inside" == "inside" ){
+            if("hide" == "inside" ){
                 html += "<div class='swiper-button-prev'></div>";
                 html += "<div class='swiper-button-next'></div>";
 
-                if("bullets" != "none" ){
+                if("none" != "none" ){
                     html += "<div class='swiper-pagination'></div>";
                 }
             }
@@ -162,11 +162,11 @@ function youtubegallery_pluginAppObj_104() {
 
             html += "</div>"; //Closing swiper container
 
-            if("inside" == "outside" ){
+            if("hide" == "outside" ){
                 html += "<div class='swiper-button-prev'></div>";
                 html += "<div class='swiper-button-next'></div>";
 
-                if("bullets" != "none" ){
+                if("none" != "none" ){
                     html += "<div class='swiper-pagination'></div>";
                 }
             }
@@ -298,18 +298,10 @@ pluginAppObj_104YouTubeGallery.on('slideChange', function () { myMakeAllButCurre
                 paginationBulletMessage: "Clicca per la diapositiva {{index}}",
             },
 
-            navigation: {
- nextEl: '#pluginAppObj_104 .swiper-button-next',
- prevEl: '#pluginAppObj_104 .swiper-button-prev',
-},
- autoplay: {
+             autoplay: {
  delay: 3000,
  disableOnInteraction: false,
 },
-pagination: {
- clickable: true,
- el: '#pluginAppObj_104 .swiper-pagination',
- type: 'bullets',},
 
             controlBy: 'container'
         });
