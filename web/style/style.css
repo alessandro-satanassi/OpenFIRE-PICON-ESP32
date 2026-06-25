@@ -243,28 +243,28 @@ stroke-width: 1;
 #welcome-mediaplayertarget { overflow: hidden; }
 .prt_field { display: none; }
 .topic-summary { display: flex; flex-flow: row wrap; justify-content: space-around; align-items: center; align-content: center; margin-bottom: 5px; padding: 10px 0; border-width: 0px; border-style: solid; border-color: rgba(35, 35, 35, 0.5); }
-.topic-average { flex: 3 1 0; box-sizing: border-box; padding: 0 5px; min-width: 210px; max-width: 48%; }
+.topic-average { flex: 30 1 0; box-sizing: border-box; padding: 0 5px; min-width: 210px; max-width: 48%; }
 .topic-average .rating-value { display: flex; align-self: center; align-items: center; font-weight: bold; }
 .topic-average .rating-value .big { font-size: calc(58px - max(58px - var(--min-text-size), 0pt) * var(--font-size-factor));  font-weight: 100; line-height: 58px; }
 .topic-average .label-review { font-size: 0.8em;  }
 .topic-average .label-no-review { padding: 10px 0; font-size: 0.8em;  }
-.topic-bars { flex: 4 1 0; box-sizing: border-box; display: inline-block; text-align: center; min-width: 350px; padding: 5px 34px; border-width: 0px 1px; border-style: solid; border-color: rgba(35, 35, 35, 0.5); }
+.topic-bars { flex: 35 1 0; box-sizing: border-box; display: inline-block; text-align: center; min-width: 350px; padding: 5px 24px; border-width: 0px 1px; border-style: solid; border-color: rgba(35, 35, 35, 0.5); }
 .comments-and-star { container-type: inline-size; }
 @container (width < 850px) {
   .topic-bars { display: none;  }
 }
-.topic-bar { display: grid; width: 100%; max-width: 100%; grid-template-columns: 7% 73% 7% 13%; justify-items: center; align-items: center; }
-.topic-bar .bar-star-n { display: flex; line-height: 26px; align-items: center; }
-.topic-bar .bar-star-n .star { width: 32px; position: unset; background-repeat: no-repeat; background-position: center; }
-.topic-bar .bar-progress { width: 100%; max-width: 100%; height: 12px; }
-.topic-bar .bar-progress > span { width: 50%; max-width: 100%; background-color: red; height: 100%; display: block; }
-.topic-bar .bar-total { padding: 0 10px; font-size: 0.95em;  }
-.topic-add-review { flex: 3 1 0; box-sizing: border-box; padding: 5px; min-width: 220px; max-width: 48%; }
+.topic-bars-inner { display: grid; width: 100%; max-width: 100%; grid-template-columns: 2ch 1fr max-content max-content; justify-items: center; align-items: center; }
+.topic-bars .bar-star-n { display: flex; line-height: 26px; align-items: center; }
+.topic-bars .bar-star-n .star { width: 32px; position: unset; background-repeat: no-repeat; background-position: center; }
+.topic-bars .bar-progress { width: 100%; max-width: 100%; height: 12px; }
+.topic-bars .bar-progress > span { width: 50%; max-width: 100%; background-color: red; height: 100%; display: block; }
+.topic-bars .bar-total { padding: 0px 10px 0px 4px; font-size: 0.95em;  }
+.topic-add-review { flex: 35 1 0; box-sizing: border-box; padding: 5px; min-width: 220px; max-width: 48%; }
 .comments-and-star .topic-add-review .topic-add-review-inner { min-width: 200px; max-width: 280px; margin: auto; margin-inline-start: 30px; }
 @media screen and (max-width: 1150px) {
 .comments-and-star .topic-add-review .topic-add-review-inner { margin-inline-start: 0px !important; }
 }
-.topic-add-review .topic-add-review-btn { padding-inline: 20px !important; }
+.topic-add-review .topic-add-review-btn { white-space: initial; padding-inline: 20px !important; }
 @media screen and (max-width: 1150px) {
 .topic-add-review .topic-add-review-btn { padding-inline: 10px !important; }
 }
@@ -291,8 +291,8 @@ stroke-width: 1;
 .topic-form-row { position: relative; padding-top: 5px; }
 .topic-star-big { width: 32px; height: 32px; cursor: pointer; display: inline-block; }
 .topic-form-row .topic-form-item.rating label.topic-star-label { margin: 0px; display: inline-block; }
-.topic-star-container-big { display: inline-block; position: relative; background-repeat: repeat-x; background-position: left top; width: 160px; height: 32px; }
-.topic-star-container-small { display: inline-block; position: relative; background-repeat: repeat-x; background-position: left top; width: 80px; height: 16px;  transform: scale(1.2) translate(5px,-2px); margin-top: 6px;  }
+.topic-star-container-big { display: inline-block; position: relative; background-repeat: repeat-x; background-position: left top; width: 160px; height: 32px; text-wrap: nowrap; }
+.topic-star-container-small { display: inline-block; position: relative; background-repeat: repeat-x; background-position: left top; width: 80px; height: 16px;  transform: scale(1.2) translate(5px,-2px); margin-top: 6px; text-wrap: nowrap; }
 .topic-star-fixer-big, .topic-star-fixer-small { display: block; position: absolute; top: 0; inset-inline-start: 0px; background-repeat: repeat-x; background-position: left top; }
 .topic-star-fixer-big { height: 32px; }
 .topic-star-fixer-small { height: 16px; }

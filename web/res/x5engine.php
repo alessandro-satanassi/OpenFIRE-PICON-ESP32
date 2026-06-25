@@ -1448,66 +1448,10 @@ class imBlog
 		$card["txtBlock"]["button"]["style"]["backgroundColor"]["a"] /= 255.0;
 
         // conversion of style-only to (style,weight) font properties
-        // if unset set it to "normal"
-        if ( !isset( $card["txtBlock"]["name"]["style"]["font"]["weight"] ) ) {
-            $card["txtBlock"]["name"]["style"]["font"]["weight"] = "normal";
-        }
-        if ( !isset( $card["txtBlock"]["description"]["style"]["font"]["weight"] ) ) {
-            $card["txtBlock"]["description"]["style"]["font"]["weight"] = "normal";
-        }
-        if ( !isset( $card["txtBlock"]["details"]["style"]["font"]["weight"] ) ) {
-            $card["txtBlock"]["details"]["style"]["font"]["weight"] = "normal";
-        }
-        if ( !isset( $card["txtBlock"]["button"]["style"]["font"]["weight"] ) ) {
-            $card["txtBlock"]["button"]["style"]["font"]["weight"] = "normal";
-        }
-        // if set to "regular" use "normal" instead
-        if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "regular" ) {
-            $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "regular" ) {
-            $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "regular" ) {
-            $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "regular" ) {
-            $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-        }
-        // "style" cannot be "bold", use "bold" for "weight" and set "style" to "normal"
-        if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold" ) {
-            $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold" ) {
-            $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold" ) {
-            $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-        }
-        if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold" ) {
-            $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-        }
-        // "style" "bold, italic" need to be splitted in "weight" "bold" and "style" "italic"
-        if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold, italic" ) {
-            $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["name"]["style"]["font"]["style"] = "italic";
-        }
-        if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold, italic" ) {
-            $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["description"]["style"]["font"]["style"] = "italic";
-        }
-        if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold, italic" ) {
-            $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["details"]["style"]["font"]["style"] = "italic";
-        }
-        if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold, italic" ) {
-            $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-            $card["txtBlock"]["button"]["style"]["font"]["style"] = "italic";
-        }
+        $card["txtBlock"]["name"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["name"]["style"]["font"] );
+        $card["txtBlock"]["description"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["description"]["style"]["font"] );
+        $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
+        $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
 
 		$misc = $this->customCardMisc( "#imBlogContent .blog-cardlayout-wrapper", $cardStyle );
 
@@ -1550,7 +1494,32 @@ class imBlog
 
 	}
 
+    function singleFontStyleWeightComponents ( $font ) {
 
+        // if unset set it to "normal"
+        if ( !isset($font["weight"]) ) {
+            $font["weight"] = "normal";
+        }
+        // if set to "regular" use "normal" instead
+        if ( $font["style"] == "regular" ) {
+            $font["style"] = "normal";
+        }
+        // "style" cannot be "bold", use "bold" for "weight" and set "style" to "normal"
+        if ( $font["style"] == "bold" ) {
+            $font["weight"] = "bold";
+            $font["style"] = "normal";
+        }
+        // "style" "bold, italic" need to be splitted in "weight" "bold" and "style" "italic"
+        if ( $font["style"] == "bold, italic" ) {
+            $font["weight"] = "bold";
+            $font["style"] = "italic";
+        }
+
+        $font["size"] = "calc(" . $font["size"] . "pt - max(" . $font["size"] . "pt - var(--min-text-size), 0pt) * var(--font-size-factor))";
+
+        return $font;
+
+    }
 
     /**
      * Show a list of posts
@@ -1590,67 +1559,13 @@ class imBlog
             // conversion of alpha from (0-255) to (0-1)
             $card["backgroundColor"]["a"] /= 255.0;
             $card["txtBlock"]["button"]["style"]["backgroundColor"]["a"] /= 255.0;
+
             // conversion of style-only to (style,weight) font properties
-            // if unset set it to "normal"
-            if ( !isset( $card["txtBlock"]["name"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["description"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["details"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["button"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "normal";
-            }
-            // if set to "regular" use "normal" instead
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-            }
-            // "style" cannot be "bold", use "bold" for "weight" and set "style" to "normal"
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-            }
-            // "style" "bold, italic" need to be splitted in "weight" "bold" and "style" "italic"
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "italic";
-            }
+            $card["txtBlock"]["name"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["name"]["style"]["font"] );
+            $card["txtBlock"]["description"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["description"]["style"]["font"] );
+            $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
+            $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
+
             $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle );
             $misc['cardLayoutCardArrangement'] = "same-height";
             $miscGlobal = $this->getCalculatedGlobalData( $card, $misc );    
@@ -1726,66 +1641,11 @@ class imBlog
             $card["backgroundColor"]["a"] /= 255.0;
             $card["txtBlock"]["button"]["style"]["backgroundColor"]["a"] /= 255.0;
             // conversion of style-only to (style,weight) font properties
-            // if unset set it to "normal"
-            if ( !isset( $card["txtBlock"]["name"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["description"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["details"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "normal";
-            }
-            if ( !isset( $card["txtBlock"]["button"]["style"]["font"]["weight"] ) ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "normal";
-            }
-            // if set to "regular" use "normal" instead
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "regular" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-            }
-            // "style" cannot be "bold", use "bold" for "weight" and set "style" to "normal"
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "normal";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "normal";
-            }
-            // "style" "bold, italic" need to be splitted in "weight" "bold" and "style" "italic"
-            if ( $card["txtBlock"]["name"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["name"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["name"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["description"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["description"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["description"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["details"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["details"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["details"]["style"]["font"]["style"] = "italic";
-            }
-            if ( $card["txtBlock"]["button"]["style"]["font"]["style"] == "bold, italic" ) {
-                $card["txtBlock"]["button"]["style"]["font"]["weight"] = "bold";
-                $card["txtBlock"]["button"]["style"]["font"]["style"] = "italic";
-            }
+            $card["txtBlock"]["name"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["name"]["style"]["font"] );
+            $card["txtBlock"]["description"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["description"]["style"]["font"] );
+            $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
+            $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
+
             $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle );
             $misc["cardBreakpoint"] = "100%";
             $misc['cardLayoutCardArrangement'] = "slideshow";
@@ -6042,8 +5902,8 @@ class imSearch {
 
         // WORD AUTOCORRECTION (light)
         $corrected = $this->autocorrectWords($queries);
-        if ($corrected !== $queries) {
-            $this->autocorrect = implode(' ', $corrected);   // save it if you need to display it
+        if ( str_replace( ['&amp;quot;', '&quot;', '"'], '', $corrected ) !== $queries ) {
+            $autocorrect = implode(' ', $corrected);   // save it if you need to display it
         }
 
         global $imSettings;
@@ -6149,12 +6009,13 @@ class imSearch {
         }
 
         // Show the autocorrection suggestion
-        if (!empty($this->autocorrect)) {
-            $query_param = urlencode($this->autocorrect);
+        if (!empty($autocorrect)) {
+            $query_param = urlencode($autocorrect);
+            $autocorrect_no_apostr = str_replace("\\'", "'", $autocorrect);
             $html = "<div class=\"imSearchSuggestion\">" 
                 . str_replace(
                     "{0}", 
-                    "<a class=\"imCssLink\" href=\"?search={$query_param}&type=products\"><strong>{$this->autocorrect}</strong></a>", 
+                    "<a class=\"imCssLink\" href=\"?search={$query_param}&type=products\"><strong>{$autocorrect_no_apostr}</strong></a>", 
                     l10n('cart_search_autocorrect_hint', "Did you mean: {0}?")
                 ) 
                 . "</div>" 
@@ -6380,7 +6241,7 @@ class imSearch {
     /**
      * Start the site search
      * 
-     * @param array  $keys The search keys as string (string)
+     * @param string $keys The search keys as string (string)
      * @param string $page Page to show (integer)
      * @param string $type The content type to show
      *
@@ -6395,7 +6256,14 @@ class imSearch {
         $emptyResultsHtml = "<div style=\"margin-top: 15px; text-align: center; font-weight: bold;\">" . l10n('search_empty') . "</div>\n";
 
         $searchFieldHtml = "<div class=\"imPageSearchField\"><form method=\"get\" action=\"imsearch.php\" role=\"search\">";
-        $searchFieldHtml .= "<input placeholder=\"" . l10n("cart_search_page_custom_research_placeholder") . "\" value=\"" . htmlspecialchars($keys, ENT_COMPAT, 'UTF-8') . "\" type=\"text\" name=\"search\" aria-label=\"" . l10n('search_search') . "\" autofocus/>";
+        $searchFieldHtml .= '<input
+            placeholder="' . l10n("cart_search_page_custom_research_placeholder") . '"
+            value="' . htmlspecialchars(html_entity_decode(stripslashes($keys)), ENT_COMPAT, 'UTF-8') . '"
+            type="text"
+            name="search"
+            aria-label="' . l10n('search_search') . '"
+            autofocus
+        />';
         $searchFieldHtml .= "<button type=\"submit\" value=\"" . l10n('search_search') . "\" >";
         $searchFieldHtml .= "<svg aria-hidden=\"true\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 250.313 250.313\" xml:space=\"preserve\"><g><path style=\"fill-rule:evenodd;clip-rule:evenodd;\" d=\"M244.186,214.604l-54.379-54.378c-0.289-0.289-0.628-0.491-0.93-0.76 c10.7-16.231,16.945-35.66,16.945-56.554C205.822,46.075,159.747,0,102.911,0S0,46.075,0,102.911	c0,56.835,46.074,102.911,102.91,102.911c20.895,0,40.323-6.245,56.554-16.945c0.269,0.301,0.47,0.64,0.759,0.929l54.38,54.38	c8.169,8.168,21.413,8.168,29.583,0C252.354,236.017,252.354,222.773,244.186,214.604z M102.911,170.146	c-37.134,0-67.236-30.102-67.236-67.235c0-37.134,30.103-67.236,67.236-67.236c37.132,0,67.235,30.103,67.235,67.236 C170.146,140.044,140.043,170.146,102.911,170.146z\"></path></g></svg>";
         $searchFieldHtml .= "</button>";
@@ -7480,14 +7348,14 @@ class ImTopic
     function getTopicBars($votescount, $ratingByValue)
     {
         $topicBars =  "<div class=\"topic-bars\">";
+        $topicBars .= "  <div class=\"topic-bars-inner\">";
         for ($i = 5; $i > 0; $i--) {
-            $topicBars .= "  <div class=\"topic-bar\">";
             $topicBars .= "    <div class=\"bar-star-n\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_rate", "Rate:") . "</span>" . $i . "</div>\n";  
             $topicBars .= "    <div class=\"bar-progress\"><span style=\"width:". ($votescount > 0 ? ( ($ratingByValue[$i] * 100) / $votescount ) : 0) ."%;\"></span></div>\n";        
             $topicBars .= "    <div class=\"bar-total\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_number_of_rates", "Number of rates:") . "</span>". $ratingByValue[$i] ."&nbsp;</div>\n";
             $topicBars .= "    <div class=\"bar-percentage\"><span class=\"screen-reader-only-even-focused\">" . l10n("comments_and_ratings_percentage_of_rates", "Percentage of rates:") . "</span>(". ($votescount > 0 ? round( ($ratingByValue[$i] * 100) / $votescount ) : 0) ."%)</div>\n";
-            $topicBars .= "  </div>\n"; //end topic-bar
         }
+        $topicBars .= "  </div>\n";
         $topicBars .= "  <div class=\"fill\"></div>";
         $topicBars .= "</div>\n"; //end topic-bars
         return $topicBars;
