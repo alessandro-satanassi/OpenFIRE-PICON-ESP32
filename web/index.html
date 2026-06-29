@@ -32,11 +32,15 @@
 		<style type="text/css">#pluginAppObj_84 { width: 100%; }</style>
 		<style type="text/css">#pluginAppObj_86 { width: 100%; }</style>
 		<style type="text/css">#pluginAppObj_94 { width: 100%; }</style>
+		<link rel="stylesheet" href="appsresources/swiper4.min.css" media="screen, print" />
+		<link rel="stylesheet" href="pluginAppObj/pluginAppObj_107/custom.css" media="screen, print" />
 		
 		<link rel="stylesheet" href="pluginAppObj/imFooter_pluginAppObj_03/custom.css" media="screen, print" />
-		<link rel="stylesheet" href="pcss/index.css?2026-2-3-1-639180228294604035" media="screen,print" />
+		<link rel="stylesheet" href="pcss/index.css?2026-2-3-1-639183630450340582" media="screen,print" />
 		<script src="res/jquery.js?2026-2-3-1"></script>
 		<script src="res/x5engine.js?2026-2-3-1" data-files-version="2026-2-3-1"></script>
+		<script src="appsresources/swiper4.min.js"></script>
+		<script src="pluginAppObj/pluginAppObj_107/main.js"></script>
 		
 		<script src="pluginAppObj/imFooter_pluginAppObj_03/main.js"></script>
 		<script>
@@ -45,7 +49,7 @@
 			x5engine.boot.push(function () { x5engine.parallax.start(); });
 			x5engine.boot.push(function () { x5engine.imPageToTop.initializeButton({}); });
 		</script>
-		<link rel="icon" href="favicon.png?2026-2-3-1-639180228293440220" type="image/png" />
+		<link rel="icon" href="favicon.png?2026-2-3-1-639183630449044081" type="image/png" />
 		<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 	</head>
 	<body>
@@ -239,48 +243,13 @@ $(function () {$('#imStickyBar_imMenuObject_03_container ul li').not('.imMnMnSep
 							</div>
 						
 						</div>
-						</div><div id="imCell_105" class=""> <div id="imCellStyleGraphics_105" ></div><div id="imCellStyleBorders_105"></div><div id="imObjectVideo_105"><div id="imObjectVideo_105_container"></div></div>
-						<script>
-							function loadimObjectVideo_105() {
-								$('#imObjectVideo_105').width('100%');
-								$('#imObjectVideo_105_container').empty();
-								var settings = { 
-									'target': '#imObjectVideo_105_container',
-									'type': 'youtube',
-									'url': 'https://www.youtube.com/watch?v=dccmurhZ-y4',
-									'width': 640,
-									'height': 360,
-									'showVideoControls': true,
-									'loop': false,
-									'muted': false,
-									'autoplay': false
-								};
-								var w = Math.min(640, $('#imObjectVideo_105').width());
-								settings.width = w;
-								var h = w > 640 ? 360 : (settings.width / 640 * 360);
-								settings.height = h;
-								x5engine.mediaPlayer(settings);
-							}
-							x5engine.boot.push(loadimObjectVideo_105);
-							var imObjectVideo_105_resizeTo = null,
-							imObjectVideo_105_width = 0;
-							var elementResize = function() {
-							x5engine.utils.onElementResize(document.getElementById('imObjectVideo_105'), function (rect, target) {
-							if (imObjectVideo_105_width == rect.width || (imObjectVideo_105_width >= 640 && rect.width > 640)) {
-								return;
-							}
-							imObjectVideo_105_width = rect.width;
-							if (!!imObjectVideo_105_resizeTo) {
-								clearTimeout(imObjectVideo_105_resizeTo);
-							}
-							imObjectVideo_105_resizeTo = setTimeout(function() {
-								loadimObjectVideo_105();
-							}, 50);
-								});
-							}
-							x5engine.boot.push(elementResize); 
-						</script>
-						</div><div id="imCell_106" class=""> <div id="imCellStyleGraphics_106" ></div><div id="imCellStyleBorders_106"></div><div id="imObjectVideo_106"><div id="imObjectVideo_106_container"></div></div>
+						</div><div id="imCell_107" class=""> <div id="imCellStyleGraphics_107" ></div><div id="imCellStyleBorders_107"></div><!-- YouTube Gallery v.17 --><div id="pluginAppObj_107">
+						        <div id="youtubegallery_pluginAppObj_107" class="bullets">
+						        </div>
+						        <script>
+						            youtubegallery_pluginAppObj_107();
+						        </script>
+						       </div></div><div id="imCell_106" class=""> <div id="imCellStyleGraphics_106" ></div><div id="imCellStyleBorders_106"></div><div id="imObjectVideo_106"><div id="imObjectVideo_106_container"></div></div>
 						<script>
 							function loadimObjectVideo_106() {
 								$('#imObjectVideo_106').width('100%');
