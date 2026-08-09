@@ -10,7 +10,8 @@ $imSettings['search']['general'] = array(
 		'8' => 'frame-files-.stl.html',
 		'10' => 'software---firmware.html',
 		'11' => 'hardware---wiring.html',
-		'12' => 'istruzioni-assemblaggio.html'
+		'12' => 'istruzioni-assemblaggio.html',
+		'13' => 'pedale.html'
 	),
 	'extendedScope' => array(
 	)

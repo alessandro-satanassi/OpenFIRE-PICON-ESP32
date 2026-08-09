@@ -1066,7 +1066,7 @@ class imBlog
 
 
 
-	function customCardBreakpointString( $cardStyle, $widths = null ){
+	function customCardBreakpointString( $cardStyle, $pageData, $widths = null ){
 
 		$breakpointString = "";
 		$cardsperrowString = "";
@@ -1080,39 +1080,16 @@ class imBlog
 
 		if ( $numBreakPoints > 0 ) {
 
-			$minContentW = 200;
-			$minCardW = $minContentW + $card["border"]["widths"]["left"] + $card["border"]["widths"]["right"];
-			if ( $card["type"] == "leftcoverrightcontents" || $card["type"] == "leftcontentsrightcover" ) {
-                $minCardW = floor( $minContentW / ( ( 100.0 - $card["image"]["percentSize"] ) / 100.0 ) ) + $card["border"]["widths"]["left"] + $card["border"]["widths"]["right"];
-			}
-
+			$minCardW = $pageData["minCardWidth"];
 			$strPieceBPdesktop = "";
 			$strPieceCPRdesktop = "";
 			for ( $i = 0 ; $i < $numBreakPoints ; $i++ ) {
 
-                if ( isset($widths) && isset($widths[$i]) && $widths[$i] > 0 ) {
-                    $maxAvailW = $widths[$i];
-                } else {
-                    $maxAvailW = $breakPoints[$i]["end"];
-                    if ( $breakPoints[$i]["end"] == 0 ) {
-                        $maxAvailW = $breakPoints[$i]["start"];
-                        if ( $maxAvailW == "max" ) {
-                            $maxAvailW = $breakPoints[$i]["width"];
-                        }
-                    } else {
-                        $maxAvailW = $imSettings['blog']['widths'][$i];
-                    }
-                }
-
+                $maxAvailW = $pageData["itemsContainerWidth"][$i];
 				$cpr = $cardStyle["cardsPerRow"];
-				$BPEnd = $breakPoints[$i]["end"];
-                if ( $breakPoints[$i]["end"] == 0 && $breakPoints[$i]["start"] == "max" ) {
-					$BPEnd = $breakPoints[$i]["width"];
-                }
-				$w = max( floor( min( $BPEnd , $maxAvailW ) / $cpr ) , $minCardW );
-				$cpr = max( floor( min( $BPEnd , $maxAvailW ) / $w ) , 1 );
-                $maxAvailW -= ( $cpr - 1 ) * $card["margin"];
-				$w = max( floor( min( $BPEnd , $maxAvailW ) / $cpr ) , $minCardW );
+				$w = max( floor( $maxAvailW / $cpr ) , $minCardW );
+				$cpr = max( floor( $maxAvailW / $w ) , 1 );
+				$w = max( floor( $maxAvailW / $cpr ) , $minCardW );
 
 				$strPieceBP = " (max-width: START) END,";
 				$strPieceCPR = " (max-width: START) END,";
@@ -1213,7 +1190,7 @@ class imBlog
 
 
 
-	function customCardMisc( $rootSelector, $cardStyle, $widths = null ) {
+	function customCardMisc( $rootSelector, $cardStyle, $pageData, $widths = null ) {
 
 		$misc = array();
 
@@ -1223,7 +1200,7 @@ class imBlog
 
 		if ( isset( $cardStyle ) ) {
 
-			$BPValues = $this->customCardBreakpointString( $cardStyle, $widths );
+			$BPValues = $this->customCardBreakpointString( $cardStyle, $pageData, $widths );
 			$misc["cardBreakpoint"] = $BPValues["breakpointString"];            
 			$misc["cardContentLayout"] = $this->customCardContentLayout( $cardStyle["card"] );
 			$misc["cardLayoutCardArrangement"] = $this->customCardLayoutArrangement( $cardStyle );
@@ -1453,7 +1430,7 @@ class imBlog
         $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
         $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
 
-		$misc = $this->customCardMisc( "#imBlogContent .blog-cardlayout-wrapper", $cardStyle );
+		$misc = $this->customCardMisc( "#imBlogContent .blog-cardlayout-wrapper", $cardStyle, $imSettings['blog'] );
 
 		$miscGlobal = $this->getCalculatedGlobalData( $card, $misc );
 
@@ -1566,7 +1543,7 @@ class imBlog
             $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
             $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
 
-            $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle );
+            $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle, $imSettings['blog'] );
             $misc['cardLayoutCardArrangement'] = "same-height";
             $miscGlobal = $this->getCalculatedGlobalData( $card, $misc );    
             $blogPostsData = array();
@@ -1646,7 +1623,7 @@ class imBlog
             $card["txtBlock"]["details"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["details"]["style"]["font"] );
             $card["txtBlock"]["button"]["style"]["font"] = $this->singleFontStyleWeightComponents( $card["txtBlock"]["button"]["style"]["font"] );
 
-            $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle );
+            $misc = $this->customCardMisc( "#imBlogContent .imBlogHighlightedCards", $cardStyle, $imSettings['blog'] );
             $misc["cardBreakpoint"] = "100%";
             $misc['cardLayoutCardArrangement'] = "slideshow";
             $misc['cardContentLayout'] = "cover-as-background";
@@ -1770,7 +1747,7 @@ END;
     {
         global $imSettings;
 		$card = $cardStyle["card"];
-		$misc = $this->customCardMisc("#" . $objectId, $cardStyle, $innerWidths);
+		$misc = $this->customCardMisc("#" . $objectId, $cardStyle, $imSettings['blog'], $innerWidths);
 		$miscGlobal = $this->getCalculatedGlobalData($card, $misc);
 
 		$blogPostsData = array();
@@ -5445,8 +5422,11 @@ class imPrivateArea
  */
 class imSearch {
 
+    /** @var array The scope of pages to search */
     var $scope;
+    /** @var int The current page number */
     var $page;
+    /** @var int The number of results per page */
     var $results_per_page;
 
     function __construct()
@@ -5482,7 +5462,7 @@ class imSearch {
     /**
      * Do the pages search
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
     function searchPages($queries)
     {        
@@ -5490,11 +5470,16 @@ class imSearch {
         $html = "";
         $found_content = array();
         $found_count = array();
+        $found_weight = array();
+        $found_title = array();
 
         if (is_array($this->scope)) {
             foreach ($this->scope as $filename) {
                 $count = 0;
                 $weight = 0;
+                $found_terms = array(); //parole distinte trovate in tutto
+                $term_hits = 0;         // parole distinte trovate nelle varie sezioni
+                $total_hits = 0;        // occorrenze totali
 				$file = file($filename);
 				if ($file === false) {
 					error_log("File not found: " . $filename, 0);
@@ -5570,11 +5555,18 @@ class imSearch {
 
                     foreach ($file_titles as $file_title) {
                         foreach ($queries as $query) {
+                            $occ = 0;
                             $title = imstrtolower($file_title);
                             while (($title = imstristr($title, $query)) !== false) {
                                 $weight += 3;
                                 $count++;
                                 $title = imsubstr($title, imstrlen($query));
+                                $occ++;
+                                $found_terms[$query] = true;
+                            }
+                            if ($occ > 0) {
+                                $term_hits++;
+                                $total_hits += $occ * 3; // title pesa di più
                             }
                         }
                     }
@@ -5584,11 +5576,18 @@ class imSearch {
                     if (count($matches) > 1) {
                         $keywords = $matches[1];
                         foreach ($queries as $query) {
+                            $occ = 0;
                             $tkeywords = imstrtolower($keywords);
                             while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
                                 $weight += 4;
                                 $count++;
                                 $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                                $occ++;
+                                $found_terms[$query] = true;
+                            }
+                            if ($occ > 0) {
+                                $term_hits++;
+                                $total_hits += $occ;
                             }
                         }
                     }
@@ -5598,11 +5597,18 @@ class imSearch {
                     if (count($matches) > 1) {
                         $keywords = $matches[1];
                         foreach ($queries as $query) {
+                            $occ = 0;
                             $tkeywords = imstrtolower($keywords);
                             while (($tkeywords = imstristr($tkeywords, $query)) !== false) {
                                 $weight += 3;
                                 $count++;
                                 $tkeywords = imsubstr($tkeywords, imstrlen($query));
+                                $occ++;
+                                $found_terms[$query] = true;
+                            }
+                            if ($occ > 0) {
+                                $term_hits++;
+                                $total_hits += $occ;
                             }
                         }
                     }
@@ -5617,17 +5623,28 @@ class imSearch {
                     $t_file_content = imstrtolower($file_content);
 
                     foreach ($queries as $query) {
+                        $occ = 0;
                         $file = $t_file_content;
                         while (($file = imstristr($file, $query)) !== false) {
                             $count++;
                             $weight++;
                             $file = imsubstr($file, imstrlen($query));
+                            $occ++;
+                            $found_terms[$query] = true;
+                        }
+                        if ($occ > 0) {
+                            $term_hits++;
+                            $total_hits += $occ;
                         }
                     }
 
                     if ($count > 0) {
                         $found_count[$filename] = $count;
-                        $found_weight[$filename] = $weight;
+                        $found_weight[$filename] = [
+                            'w1' => count($found_terms),
+                            'w2' => $term_hits,
+                            'w3' => $total_hits
+                        ];
                         $found_content[$filename] = $file_content;
                         if (count($file_titles) == 0)
                             $found_title[$filename] = $filename;
@@ -5639,7 +5656,18 @@ class imSearch {
         }
 
         if (count($found_count)) {
-            arsort($found_weight);
+            uasort($found_weight, function($a, $b) {
+                // Ordine decrescente per w1
+                if ($a['w1'] != $b['w1']) {
+                    return $b['w1'] <=> $a['w1'];
+                }
+                // A parità di w1, ordine decrescente per w2
+                if ($a['w2'] != $b['w2']) {
+                    return $b['w2'] <=> $a['w2'];
+                }
+                // A parità di w1 e w2, ordine decrescente per w3
+                return $b['w3'] <=> $a['w3'];
+            });
             $i = 0;
             foreach ($found_weight as $name => $weight) {
                 $count = $found_count[$name];
@@ -5698,7 +5726,7 @@ class imSearch {
     /**
      * Do the blog posts search
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
     function searchBlog($queries)
     {
@@ -5706,6 +5734,9 @@ class imSearch {
         $html = "";
         $found_content = array();
         $found_count = array();
+        $found_weight = array();
+        $found_title = array();
+        $found_breadcrumbs = array();
 
         if (isset($imSettings['blog']) && isset($imSettings['blog']['posts']) && is_array($imSettings['blog']['posts'])) {
             foreach ($imSettings['blog']['posts'] as $key => $value) {
@@ -5853,7 +5884,7 @@ class imSearch {
     /**
      * Autocorrect words using Levenshtein distance
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
     function autocorrectWords($queries) {
 
@@ -5885,12 +5916,76 @@ class imSearch {
     }
 
     /**
+     * Calculate weight and matches count
+     * @access public
+     * 
+     * @param array $queries The search queries (array)
+     * @param string $from The string where to find the queries
+     * 
+     * @return array(
+     *  "weight" => the assigned weight
+     *  "count" => count of matches found
+     * )
+     */
+    function weightAndCount($queries, $from) {
+
+        $weight = 0;
+        $count = 0;
+
+        // Count the number of matches in the title
+        foreach ($queries as $query) {
+
+            $queryLen = strlen($query);
+
+            // Fuzzy match for each word in the string
+            $words = preg_split('/\s+/', $from);
+
+            $bestDistance = 99;
+            $isPrefix = false;
+            foreach ($words as $w) {
+                // Prefer prefix matches over Levenshtein suggestions to support partial searches
+                if ( $queryLen >= 3 && strpos($w, $query) === 0 ) {
+                    $isPrefix = true;
+                }
+
+                $d = levenshtein($query, $w);
+                if ($d < $bestDistance) {
+                    $bestDistance = $d;
+                }
+            }
+
+            if ( $isPrefix ) { // prefix bonus
+                $weight += 5;
+                $count += 1;
+            }
+
+            if ($bestDistance === 0) { // exact match
+                $weight += 4;
+                $count +=1;
+            } elseif ($bestDistance === 1) { // minimal typo
+                $weight += 3;
+                $count +=1;
+            } elseif ($bestDistance === 2 && $queryLen > 4) { // major typo, but quite a long word
+                $weight += 1;
+                $count +=1;
+            }
+
+        }
+
+        return array(
+            "weight" => $weight,
+            "count" => $count
+        );
+
+    }
+
+    /**
      * Do the products search
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
-    function searchProducts($queries)
-    {
+    function searchProducts($queries) {
+
        // Di questa funzione manca la paginazione!
 
         // Remove quots from queries
@@ -5905,6 +6000,9 @@ class imSearch {
         if ( str_replace( ['&amp;quot;', '&quot;', '"'], '', $corrected ) !== $queries ) {
             $autocorrect = implode(' ', $corrected);   // save it if you need to display it
         }
+
+        // strToLower the queries
+        $queries = array_map('imstrtolower', $queries);
 
         global $imSettings;
         $html = "";
@@ -5959,44 +6057,20 @@ class imSearch {
             }
 
             // Count the number of matches in the title
-            foreach ($queries as $query) {
-
-                // Fuzzy match for each word in the title
-                $words = preg_split('/\s+/', $t_title);
-                $bestDistance = 99;
-                foreach ($words as $w) {
-                    $d = levenshtein($query, $w);
-                    if ($d < $bestDistance) {
-                        $bestDistance = $d;
-                    }
-                }
-                if ($bestDistance === 0) { // exact match
-                    $weight += 4;
-                    $count +=1;
-                } elseif ($bestDistance === 1) { // minimal typo
-                    $weight += 3;
-                    $count +=1;
-                } elseif ($bestDistance === 2 && strlen($query) > 4) { // major typo, but quite a long word
-                    $weight += 1;
-                    $count +=1;
-                }
-
-            }
+            $weightAndCountFromTitle = $this->weightAndCount($queries, $t_title);
+            $weight += $weightAndCountFromTitle["weight"];
+            $count += $weightAndCountFromTitle["count"];
 
             // Count the number of matches in the description
-            foreach ($queries as $query) {
-                $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_description, $matches);
-                if ($t_count !== false) {
-                    $weight++;
-                    $count += $t_count;
-                }
-            }
+            $weightAndCountFromDescription = $this->weightAndCount($queries, $t_description);
+            $weight += $weightAndCountFromDescription["weight"];
+            $count += $weightAndCountFromDescription["count"];
 
             // Count the number of matches in the SKU
             foreach ($queries as $query) {
                 $t_count = preg_match_all('/' . preg_quote($query, '/') . '/', $t_sku, $matches);
                 if ($t_count !== false) {
-                    $weight++;
+                    $weight += 5;
                     $count += $t_count;
                 }
             }
@@ -6058,7 +6132,7 @@ class imSearch {
     /**
      * Do the images search
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
     function searchImages($queries)
     {
@@ -6139,7 +6213,7 @@ class imSearch {
     /**
      * Do the videos search
      * @access public
-     * @param queries The search query (array)
+     * @param array $queries The search query (array)
      */
     function searchVideos($queries)
     {
@@ -6321,7 +6395,9 @@ class imSearch {
             $videos = array("count" => 0);
         // Fallback on the selection if there are no videos
         if ($videos['count'] == 0 && $type == "videos")
-            $type = "pages";            
+            $type = "pages";
+
+        $results_count = 0;
 
         // Show only the requested content type
         switch ($type) {

@@ -49,8 +49,8 @@
                     id="{{../misc.objectIdPrefix}}imBlogPostCardCover_{{id}}" 
                     class="im-cc-BlogPostCardCover{{#if cardCover}}{{else}} contain{{/if}}" 
                     src="{{currentPath}}{{#if isHighlighted}}{{cover}}{{else}}{{#if cardCover}}{{cardCover}}{{else}}blog/images/blog_post_placeholder.svg{{/if}}{{/if}}" 
-                    alt="{{coverAlt}}"
-                    {{#if coverTitle}}title="{{coverTitle}}"{{/if}}
+                    alt="{{{coverAlt}}}"
+                    {{#if coverTitle}}title="{{{coverTitle}}}"{{/if}}
                     onclick="window.location='{{relativeUrl}}';" 
                 />{{!
             }}</div>
